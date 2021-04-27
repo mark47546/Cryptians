@@ -2,7 +2,12 @@ from django.shortcuts import render
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from pusher import Pusher
-import requests, json, atexit, time, plotly, plotly.graph_objs as go
+import requests
+import json
+import atexit
+import time
+import plotly
+import plotly.graph_objs as go
 
 pusher = Pusher(
     app_id='1195196',
@@ -18,7 +23,7 @@ prices = {"BTC": []}
 
 
 def index(request):
-    return render(request,"index.html")
+    return render(request, "index.html")
 
 
 def retrieve_data():
@@ -73,4 +78,3 @@ scheduler.add_job(
     replace_existing=True)
 # Shut down the scheduler when exiting the app
 atexit.register(lambda: scheduler.shutdown())
-
