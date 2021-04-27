@@ -139,3 +139,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+app_id = 'cryptians_id'
+app_key = 'cryptians_key'
+
