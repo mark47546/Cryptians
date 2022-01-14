@@ -21,6 +21,6 @@ def allPost(request):
     return render(request,'post/all_post.html',{'post':page_obj})
 
 
-def viewPost(request,new_id):
-    get_post_id = Post.objects.get(id=new_id)
+def viewPost(request,post_id):
+    get_post_id = Post.objects.get(id=post_id)
     return render(request, 'post/view_post.html',{'post':get_post_id})
