@@ -21,6 +21,7 @@ from django.views.static import serve
 from django.conf.urls import url
 from django.conf import settings
 from login import views as v
+from django.conf.urls.static import static
 
 admin.site.site_header = 'CRYPTIANS'                 
 admin.site.index_title = 'Features area'
@@ -35,5 +36,6 @@ urlpatterns = [
     path('', include('social_django.urls', namespace='social')),
     path('logout/',LogoutView.as_view(template_name=settings.LOGOUT_REDIRECT_URL),name='logout'),
     # path('', views.index, name='index'),
+    url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ]
