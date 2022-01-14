@@ -23,8 +23,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='PostComment')
-    image = models.ImageField(upload_to='Comment/', null=True, blank=True)
-    body = models.TextField(max_length=200)
+    body = HTMLField(null=True, blank=True)
 
     posted_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)

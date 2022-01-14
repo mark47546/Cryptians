@@ -6,9 +6,7 @@
     <head>
       <mate charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-------Close---------------งานทั้งหมด to ข่าวทั้งหมด------------------------------------------------------------------------------------>
       <title>All Post | Cryptians</title>
-<!---------------------------------------------------------------------------------------------------------------->
   </head>
 <body>
 
@@ -17,7 +15,9 @@
       <div class="table-wrapper">
         <div class="verticalLine">
             <h1 style="margin-top: 10px; margin-bottom: 20px; margin-left: 30px;">All Post
-            <a class="btn add-new text-white product-form" role="button" aria-pressed="true" style="float: right; background-color: #ebad08;"><i class="fa fa-plus"></i> Create New Post</a></h1>
+            {% if user.is_authenticated%}
+            <a class="btn add-new text-white product-form" role="button" aria-pressed="true" style="float: right; background-color: #ebad08;"><i class="fa fa-plus"></i> Create New Post</a>{% endif %}
+        </h1>
         </div>
         <hr style="margin-bottom: 30px;">
             <form class="form-inline my-lg-0" action="" style="float: right; ">
