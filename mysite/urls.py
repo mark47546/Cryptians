@@ -13,4 +13,5 @@ urlpatterns = [
     path('myPost/edit/<str:post_id>',views.editPost, name='editPost'),
     path('myPost/update/<str:post_id>',views.updatePost, name='updatePost'),
     path('myPost/delete/<str:post_id>',views.deletePost, name='deletePost'),
+    path('allPost/<str:post_id>/deleteComment/<str:comment_id>/',views.deleteComment, name='deleteComment'),
 ]
