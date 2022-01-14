@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
-    coverImage = models.ImageField(upload_to='Post/', null=True)
+    coverImage = models.ImageField(upload_to='Post/', null=True,blank=True)
     body = HTMLField(null=True, blank=True)
 
     posted_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
