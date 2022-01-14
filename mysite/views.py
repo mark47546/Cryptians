@@ -32,8 +32,17 @@ def createPost(request):
         return render(request,'Post/create_post.html', {'form':form})
 
 def viewPost(request,post_id):
+    posted_by = request.user
     get_post_id = Post.objects.get(id=post_id)
-    return render(request, 'post/view_post.html',{'post':get_post_id})
+    comments = Comment.objects.filter(post = post_id)
+    form = CreatePostForm(initial={'posted_by':posted_by})
+    if request.method == "POST":
+        form = CreateCommentForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect(f"/allPost/{get_post_id.id}")
+    
+    return render(request, 'post/view_post.html',{'post':get_post_id, 'form':form, 'comments':comments})
 
 
 def myPost(request):
@@ -72,8 +81,17 @@ def updatePost(request,post_id):
 def deletePost(request,post_id):
     posted_by = request.user
     get_post_id = Post.objects.get(id=post_id)
-    if posted_by == get_post_id.posted_by:
+    if posted_by == get_post_id.posted_by or posted_by.is_staff or posted_by.is_superuser:
         get_post_id.delete()
     else:
         pass
     return redirect("/myPost")
+
+def deleteComment(request,comment_id,post_id):
+    posted_by = request.user
+    get_comment_id = Comment.objects.get(id=comment_id)
+    if posted_by == get_comment_id.posted_by or posted_by.is_staff or posted_by.is_superuser:
+        get_comment_id.delete()
+    else:
+        pass
+    return redirect(f"/allPost/{get_comment_id.post.id}")
