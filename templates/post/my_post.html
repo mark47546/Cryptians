@@ -1,0 +1,83 @@
+{% extends 'index.html' %}
+
+{% block content %}
+{% load static %}
+<DOCTYPE html>
+  <html lang="en">
+    <head>
+      <mate charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>My Post | Cryptians</title>
+  </head>
+<body>
+{% if user.is_authenticated%}
+
+  <div class="container-lg">
+    <div class="table-responsive">
+      <div class="table-wrapper">
+        
+          <div class="verticalLine">
+            <h1 style="margin-top: 10px; margin-bottom: 20px; margin-left: 30px;">My Post <a>(sum of post = {{count_my_post}})</a>
+            <a class="btn add-new text-white product-form" role="button" aria-pressed="true" style="float: right; background-color: #ebad08;"><i class="fa fa-plus"></i> Create New Post</a></h1>
+
+          </div>
+          <hr style="margin-bottom: 30px;">
+
+          <form class="form-inline my-lg-0" action="{% url 'mysite:myPost' %}" style="float: right; ">
+            <div class="wrap-input100 validate-input" style="width: auto; margin-bottom: 15px;">
+                <input class="input100 form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" style="width: 250px; height: 45px; max-width: 100%;">
+                <span class="focus-input100" style="width: 250px; max-width: 100%;"></span>
+                <span class="symbol-input100">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </span>
+            </div>
+            <button class="btn" type="submit" style="height: 45px; font-weight: bold; border-radius: 80px; margin-bottom: 15px; border-color: #ebad08; color: #ebad08;">Search</button>
+          </form>
+       
+          <div class="add-new"></div>
+          <div style="margin-top: 40px; overflow-x: auto;">
+                {% for post in post %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row g-0">
+                            <div class="col-md-5">
+                                <div class="ratio ratio-16x9" align='center'>
+                                    {% if not post.coverImage %}
+                                        <img src="{% static 'images/Upload.png' %}" class="rounded" style="max-width:100%; max-height: 300px;">
+                                    {% else %}
+                                        <img src="{{ post.coverImage.url }}" class="rounded" style="max-width:100%; max-height: 300px;">
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-7 ps-md-3 pt-3 pt-md-0 d-flex flex-column">
+                                <h1 class="card-title h1">
+                                    <a style="font-size: 30px;" href="/allPost/{{post.id}}">{{ post.title }}</a>
+                                </h1>
+                                <div class="text-muted">
+                                    <small>
+                                        Published {{ post.created_at }} by <strong>{{ post.posted_by }}</strong>
+                                    </small>
+                                </div>
+                                <p class="card-text mb-auto py-2">{{ post.body|safe|striptags|truncatechars:150 }}</p>
+                                <div>
+                                    <a href="edit/{{post.id}}" class="btn btn-primary">Edit</a>
+                                    <a href="delete/{{post.id}}" class="btn btn-danger">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+          </div>
+        </div>
+    </div>
+</div>     
+
+
+{% else %}
+    <h1 align="center"><a href="/login" >You need to login first</a></h1>
+{% endif %}
+</body>
+</html>
+{% endblock %}
+
