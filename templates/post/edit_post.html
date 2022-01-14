@@ -1,0 +1,82 @@
+{% extends 'index.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <mate charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Post | Cryptians</title>
+</head>
+<body>
+<div class="table-wrapper">
+{% if user.is_authenticated%}
+<nav aria-label="breadcrumb" style="margin-bottom: 30px;">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/myPost" onclick="return confirm('Are you sure that you want to cancel');">My Post</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit Post</li>
+    </ol>
+  </nav>
+<div class="verticalLine">
+    <h1 style="margin-top: 20px; margin-bottom: 20px; margin-left: 30px;">Edit Post {{post.title}}</h1>
+</div>
+<form enctype="multipart/form-data" method="post" action="/myPost/update/{{post.id}}" onsubmit="return checkForm(this);">
+    {% csrf_token %}
+    {% load static %}
+    {{ form.media }}
+    <p hidden>{% render_field form.posted_by class="form-control" %}</p>
+
+    <lable style="margin-left: 25px; font-size: 18px;"><b style="color: red; font-size: 20px;">* </b><b>Post Title :</b></lable>
+    <div class="wrap-input100 validate-input" style="margin-bottom: 40px; margin-top: 15px;">
+        <input class="input100" type="text" name="title" value="{{post.title}}" required>
+        <span class="focus-input100"></span>
+        <span class="symbol-input100">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+        </span>
+    </div>
+    <lable style="margin-left: 25px; font-size: 18px;"><b>Upload Picture :</b></lable>
+    <div align="center" style="margin-bottom: 40px; margin-top: 15px;">
+        <span class="input-group-btn">
+            <span name="coverImage" class="btn btn-light" style=" border-color:#cc8e45; color: #cc8e45; border-width: 3px;" onclick="$(this).parent().find('input[type=file]').click();">
+                <div><img id="blah" style="max-height: 400px; max-width: 100%; margin-bottom: 10px;" src="../../media/{{post.coverImage}}" alt="your image" /></div>
+                <a style="font-size: auto;">Click to upload</a>
+            </span>
+            <input name="coverImage" onchange="$(this).parent().parent().find('.form-control').html($(this).val().split(/[\\|/]/).pop()); readURL(this);" style="display: none;" type="file">
+        </span>
+    </div>
+<!---------------------------------------------------------------------------------------------------------------->
+    <lable style="margin-left: 25px; font-size: 18px;"><b>Post Body :</b></lable>
+    <div class="wrap-input100 validate-input" style="margin-bottom: 40px; margin-top: 15px;">
+        {{form.body}}
+    </div>
+<!---------------------------------------------------------------------------------------------------------------->
+
+
+    <input type="submit" class="btn btn-success" name="myButton" value="Submit" style=" margin-left: 25px; margin-top: 20px; margin-right: 5px; width: 100px; margin-bottom: 20px;">
+    <a href='/myPost' class='btn btn-danger' onclick="return confirm('Are you sure that you want to cancel');" style="margin-top: 20px; width: 100px; margin-bottom: 20px;">Back</a>
+    <a style="color: #c80000;">{{ form.errors }}</a>
+
+</form>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+</div>
+{% else %}
+    <h1 align="center"><a href="/login" style="font-size: 30px; margin-top: 30px;">You need to login first</a></h1>
+{% endif %}
+
+</body>
+</html>
+{% endblock %}

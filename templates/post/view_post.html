@@ -1,0 +1,56 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<DOCTYPE html>
+<html lang="en">
+<head>
+    <mate charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{post.title}} | Cryptians</title>
+    <style>
+        @media print {
+            .hidden-print, .footer {
+            display: none;
+            }
+            html, body {
+            border: 1px solid white;
+            height: 99%;
+            page-break-after: avoid;
+            page-break-before: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% load static %}
+    <div class="table-wrapper">
+        <nav aria-label="breadcrumb" style="margin-bottom: 30px;">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/allPost">All Post</a></li>
+              <li class="breadcrumb-item active" aria-current="page">View {{post.title}} post</li>
+            </ol>
+          </nav>
+        <div align="center" class="inside-page-hero grid-container grid-parent">
+            <h1>{{post.title}}</h1>
+            <time class="entry-date published" >{{post.created_at}}</time> by {{post.posted_by}}</span>
+            <hr style="margin-top: 30px;">
+        </div>
+        <div align="center" style="margin-bottom: 50px; margin-top: 50px;">
+        {% if post.coverImage %}
+        <a class="btn btn-light" style="border-color:#cc8e45; color: #cc8e45; border-width: 3px; margin-top: 20px;" href="{{ post.coverImage.url }}" target="_blank">
+            <img id="blah" style="max-height: 500px; max-width: 100%; margin-bottom: 10px;" src="../../media/{{post.coverImage}}" />
+        </a>
+        {% else %}
+        <a class="btn btn-light" style="border-color:#cc8e45; color: #cc8e45; border-width: 3px; margin-top: 20px;">
+            <img id="blah" style="max-height: 500px; max-width: 100%; margin-bottom: 10px;" src="{% static 'images/Upload.png' %}" />
+        </a>
+        {% endif %}
+        </div>
+        
+        <a style="word-wrap: break-word;">{{post.body|safe}}</a>
+
+    </div>
+</body>
+</html>
+{% endblock %}
