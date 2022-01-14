@@ -28,6 +28,7 @@ admin.site.site_title = 'Adminsitration'
 
 urlpatterns = [
     path('', include('mysite.urls', namespace='mysite')),
+    path('tinymce/', include('tinymce.urls')),
     path('admin/', admin.site.urls, name='administrator'),
     path("register/", v.register, name="register"),
     path('', include("django.contrib.auth.urls")),
