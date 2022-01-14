@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Post, Comment
 from .forms import CreatePostForm, UpdatePostForm, CreateCommentForm, UpdateCommentForm
 from django.core.paginator import Paginator
@@ -20,6 +20,16 @@ def allPost(request):
     page_obj = paginator.get_page(page_number)
     return render(request,'post/all_post.html',{'post':page_obj})
 
+def createPost(request):
+    posted_by = request.user
+    if request.method == "POST":
+        form = CreatePostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("/allPost")
+    else:
+        form = CreatePostForm(initial={'posted_by':posted_by})
+        return render(request,'Post/create_post.html', {'form':form})
 
 def viewPost(request,post_id):
     get_post_id = Post.objects.get(id=post_id)
