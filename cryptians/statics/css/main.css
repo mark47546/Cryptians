@@ -76,7 +76,7 @@ a:focus {
 
 a:hover {
 	text-decoration: none;
-  color: #57b846;
+  color: #ebad08;
 }
 
 /*---------------------------------------------*/
@@ -272,7 +272,7 @@ iframe {
   width: 100%;
   height: 100%;
   box-shadow: 0px 0px 0px 0px;
-  color: rgba(87,184,70, 0.8);
+  color: #ebad08;
 }
 
 .input100:focus + .focus-input100 {
@@ -320,7 +320,7 @@ iframe {
 }
 
 .input100:focus + .focus-input100 + .symbol-input100 {
-  color: #57b846;
+  color: #ebad08;
   padding-left: 28px;
 }
 
@@ -348,7 +348,7 @@ iframe {
   width: 100%;
   height: 50px;
   border-radius: 25px;
-  background: #57b846;
+  background: #ebad08;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -595,7 +595,7 @@ table.table td a {
   min-width: 24px;
 }    
 table.table td a.add {
-  color: #27C46B;
+  color: #ebad08;
 }
 table.table td a.edit {
   color: #FFC107;
