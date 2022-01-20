@@ -70,7 +70,31 @@
             </a> -->
             
         </div>
-        
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+              {
+              "symbols": [
+              {
+                  "description": "",
+                  "proName": "BINANCE:BTCUSD"
+              },
+              {
+                  "description": "",
+                  "proName": "BINANCE:ETHUSD"
+              },
+              {
+                  "description": "",
+                  "proName": "BITFINEX:IOTUSD"
+              }
+              ],
+              "colorTheme":"dark",
+              "isTransparent": false,
+              "displayMode": "adaptive",
+              "locale": "en"
+          }
+              </script>
+      </div>
       </nav>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -96,7 +120,7 @@
           })
         </script>
         <!--===============================================================================================-->
-          
+        
         
         {% block content %} 
         
