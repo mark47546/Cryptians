@@ -27,7 +27,7 @@ Login Here
 					<img src="{% static 'images/login.png' %}" alt="IMG">
 				</div>
 
-				<form method="post" class="login100-form validate-form" onsubmit="return checkForm(this);">
+				<form method="post" class="login100-form validate-form" onsubmit="checkForm(this);">
 					{% csrf_token %}
 					<span class="login100-form-title">
 						Member Login

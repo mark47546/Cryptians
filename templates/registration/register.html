@@ -27,7 +27,7 @@ Create an Account
 				<div class="login100-pic js-tilt" data-tilt>
 					<img src="{% static 'images/register.png' %}" alt="IMG">
 				</div>
-				<form method="post" class="login100-form validate-form" onsubmit="return checkForm(this);">
+				<form method="post" class="login100-form validate-form" onsubmit="checkForm(this);">
 					{% csrf_token %}
 					<span class="login100-form-title">
 						Register

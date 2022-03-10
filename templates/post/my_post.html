@@ -18,7 +18,7 @@
         
           <div class="verticalLine">
             <h1 style="margin-top: 10px; margin-bottom: 20px; margin-left: 30px;">My Post <a>(sum of post = {{count_my_post}})</a>
-            <a class="btn add-new text-white product-form" role="button" aria-pressed="true" style="float: right; background-color: #ebad08;"><i class="fa fa-plus"></i> Create New Post</a></h1>
+                <a class="btn add-new text-white product-form" role="button" aria-pressed="true" style="float: right; background-color: #ebad08;" href="/createPost/"><i class="fa fa-plus"></i> Create New Post</a></h1>
 
           </div>
           <hr style="margin-bottom: 30px;">
@@ -53,6 +53,11 @@
                                 <h1 class="card-title h1">
                                     <a style="font-size: 30px;" href="/allPost/{{post.id}}">{{ post.title }}</a>
                                 </h1>
+                                <div style="display:flex">
+                                    {% for tag in post.tags.all %}
+                                    <a class="mr-1 badge badge-info" style="color: aliceblue;">#{{ tag }}</a>
+                                    {% endfor %}
+                                </div>
                                 <div class="text-muted">
                                     <small>
                                         Published {{ post.created_at }} by <strong>{{ post.posted_by }}</strong>
