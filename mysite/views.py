@@ -3,6 +3,11 @@ from .models import Post, Comment
 from .forms import CreatePostForm, UpdatePostForm, CreateCommentForm, UpdateCommentForm
 from django.core.paginator import Paginator
 from django.db.models import Q
+from taggit.models import Tag
+from .forms import CreatePostForm
+from django.shortcuts import render, get_object_or_404
+from taggit.models import Tag
+from django.template.defaultfilters import slugify
 
 # Create your views here.
 def homepage(request):
@@ -18,10 +23,23 @@ def allPost(request):
     paginator = Paginator(data, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request,'post/all_post.html',{'post':page_obj})
+    common_tags = Post.tags.most_common()[:4]
+
+    return render(request,'post/all_post.html',{'post':page_obj,'common_tags':common_tags})
+
+def tagged(request, slug):
+    tag = get_object_or_404(Tag, slug=slug)
+    common_tags = Post.tags.most_common()[:4]
+    data = Post.objects.filter(tags=tag)
+    paginator = Paginator(data, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'post/all_post.html', {'post':page_obj,'common_tags':common_tags})
 
 def createPost(request):
     posted_by = request.user
+    common_tags = Post.tags.most_common()[:4]
     if request.method == "POST":
         form = CreatePostForm(request.POST, request.FILES)
         if form.is_valid():
@@ -29,7 +47,7 @@ def createPost(request):
             return redirect("/allPost")
     else:
         form = CreatePostForm(initial={'posted_by':posted_by})
-        return render(request,'Post/create_post.html', {'form':form})
+        return render(request,'Post/create_post.html', {'form':form, 'common_tags':common_tags})
 
 def viewPost(request,post_id):
     posted_by = request.user
@@ -62,11 +80,12 @@ def myPost(request):
 def editPost(request,post_id):
     posted_by = request.user
     get_post_id = Post.objects.get(id=post_id)
+    common_tags = Post.tags.most_common()[:4]
     if posted_by == get_post_id.posted_by:
         form = CreatePostForm(instance=get_post_id)
     else: 
         pass
-    return render(request,'post/edit_post.html',{'form':form,'post':get_post_id, 'posted_by':posted_by})
+    return render(request,'post/edit_post.html',{'form':form,'post':get_post_id, 'posted_by':posted_by, 'common_tags':common_tags})
 
 def updatePost(request,post_id):
     get_post_id = Post.objects.get(id=post_id)
