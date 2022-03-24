@@ -7,8 +7,7 @@ from django.shortcuts import redirect
 def user_tweets():
     auth = OAuthHandler("pqtWKow9JZhjXDgOXZ0hHkqL0", "RaROZ33w03qQhxrP1ypKEr7XRUWmJ93es8Pj0qSVs3Xnm6CT6t")
     auth.set_access_token("778523033979883520-sW2u16k8R2Cjx9gQJahk7UcwS2dxyjP", "sf8EkF6LeXzFwdKQ2VdlYamNSS6txhQXwuDB5RiT2vAoJ")
-
-    api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify = True)
+    api = tweepy.API(auth)
     # trends_result = api.trend_place(1225448)[:10]
     user_tweets = api.user_timeline(count=50)
     return user_tweets
