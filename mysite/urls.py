@@ -17,5 +17,7 @@ urlpatterns = [
     path('allPost/<str:post_id>/deleteComment/<str:comment_id>/',views.deleteComment, name='deleteComment'),
 
     path('tweet_list/',views.tweet_list, name='tweet_list'),
-    
+    path('tweet_list/tweet_set_inactive/<str:pk>',views.tweet_set_inactive, name='tweet_set_inactive'),
+    path('tweet_list/tweet_set_active/<str:pk>',views.tweet_set_active, name='tweet_set_active'),
+    path('tweet_list/tweet_fetch',views.tweet_fetch, name='tweet_fetch'),
 ]
