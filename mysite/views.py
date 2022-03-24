@@ -1,16 +1,26 @@
-from django.shortcuts import render, redirect
-from .models import Post, Comment
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Post, Comment, Tweet
 from .forms import CreatePostForm, UpdatePostForm, CreateCommentForm, UpdateCommentForm
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
-from taggit.models import Tag
-from .forms import CreatePostForm
-from django.shortcuts import render, get_object_or_404
-from taggit.models import Tag
-from django.template.defaultfilters import slugify
+from twython import Twython
+import requests, json
+from bs4 import BeautifulSoup
+import re, random 
+from django.conf import settings 
+import tweepy
+from tweepy.auth import OAuthHandler
+from django.contrib.auth.decorators import login_required
+from .twitter import set_active, set_inactive, save_to_db
 
-# Create your views here.
 def homepage(request):
+    # try:
+    #     user = request.user 
+    #     name = UserProfile.objects.filter(user = user).first()
+    #     allposts = UserPosts.objects.all().order_by('-timestamp')
+    #     return render(request, "home.html", {"name": name.firstname, "allposts":allposts, "trends":trends_result[0]["trends"]})
+    # except:
+    #     return render(request, "login.html")
     return render(request,'home.html')
 
 
@@ -114,3 +124,31 @@ def deleteComment(request,comment_id,post_id):
     else:
         pass
     return redirect(f"/allPost/{get_comment_id.post.id}")
+
+@login_required
+def tweet_list(request):
+    tweets = Tweet.objects.order_by('-published_date')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(tweets, 10)
+    try:
+        tweets = paginator.page(page)
+    except PageNotAnInteger:
+        tweets = paginator.page(1)
+    except EmptyPage:
+        tweets = paginator.page(paginator.num_pages)
+    return render(request, 'twitter/twitter.html', {'tweets': tweets})
+
+@login_required
+def tweet_set_inactive(request, pk):
+    set_inactive(pk)
+    return redirect('tweet_list')
+
+@login_required
+def tweet_set_active(request, pk):
+    set_active(pk)
+    return redirect('tweet_list')
+
+@login_required
+def tweet_fetch(request):
+    save_to_db()
+    return redirect('tweet_list')

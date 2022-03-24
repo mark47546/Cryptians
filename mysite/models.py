@@ -2,6 +2,7 @@ from django.db import models
 from tinymce.models import HTMLField
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
+
 class Post(models.Model):
     title = models.CharField(max_length=100)
     coverImage = models.ImageField(upload_to='Post/', null=True,blank=True)
@@ -33,3 +34,14 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.post.title + ' | ' + self.body + ' By : ' + self.posted_by.username 
+
+class Tweet(models.Model):
+    tweet_id = models.CharField(max_length=250, null=True, blank=True)
+    tweet_text = models.TextField()
+    published_date = models.DateTimeField(blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.tweet_text
+
+    
