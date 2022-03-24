@@ -127,6 +127,7 @@ def deleteComment(request,comment_id,post_id):
 
 @login_required
 def tweet_list(request):
+    # save_to_db()
     tweets = Tweet.objects.order_by('-published_date')
     page = request.GET.get('page', 1)
     paginator = Paginator(tweets, 10)
@@ -141,14 +142,14 @@ def tweet_list(request):
 @login_required
 def tweet_set_inactive(request, pk):
     set_inactive(pk)
-    return redirect('tweet_list')
+    return redirect('/tweet_list')
 
 @login_required
 def tweet_set_active(request, pk):
     set_active(pk)
-    return redirect('tweet_list')
+    return redirect('/tweet_list')
 
 @login_required
 def tweet_fetch(request):
     save_to_db()
-    return redirect('tweet_list')
+    return redirect('/tweet_list')
