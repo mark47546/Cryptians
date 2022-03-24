@@ -1,7 +1,7 @@
 {% extends 'index.html' %}
-
-{% block content %}
 {% load static %}
+{% block content %}
+
 <DOCTYPE html>
     <html lang="en">
         <head>
@@ -10,7 +10,9 @@
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         </head>
         <body class="bg">
-            TWITTER
+            <div style="margin-top: 20px;">
+                <h1>TWITTER</h1>
+            </div>
             {% for tweet in tweets %}
                 <tr>
                     <th scope="row">{{ tweet.tweet_text }} {% if tweet.is_active %}<span class="badge badge-pill badge-success">Active</span>{% endif %}</th>
