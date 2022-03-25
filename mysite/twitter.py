@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 
 def user_tweets():
-    auth = OAuthHandler("pqtWKow9JZhjXDgOXZ0hHkqL0", "RaROZ33w03qQhxrP1ypKEr7XRUWmJ93es8Pj0qSVs3Xnm6CT6t")
-    auth.set_access_token("778523033979883520-sW2u16k8R2Cjx9gQJahk7UcwS2dxyjP", "sf8EkF6LeXzFwdKQ2VdlYamNSS6txhQXwuDB5RiT2vAoJ")
+    auth = OAuthHandler("W2mDDh5w4BHZblR9tGiTOiHG0", "F9IPLi9VBWNTjDz2X6HVgQWVE4zQIdjTqEKOIsVuprj8VQB8WH")
+    auth.set_access_token("1507008482481868820-zfm9W8VhFSbXzYtkgTKS8w0zOFfO4O", "3RXm3LJ0oS9E4yuqByvwNFAlEmisjNUe43fXfTialHyn6")
     api = tweepy.API(auth)
     # trends_result = api.trend_place(1225448)[:10]
     user_tweets = api.user_timeline(count=50)

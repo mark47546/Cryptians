@@ -127,7 +127,7 @@ def deleteComment(request,comment_id,post_id):
 
 @login_required
 def tweet_list(request):
-    # save_to_db()
+    save_to_db()
     tweets = Tweet.objects.order_by('-published_date')
     page = request.GET.get('page', 1)
     paginator = Paginator(tweets, 10)
