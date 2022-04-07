@@ -37,10 +37,11 @@
             <li class="nav-item">
               <a class="nav-link" href="/allPost/" style="text-align: left;">All POST</a>
             </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="/tweet_list/" style="text-align: left;">TWITTER NEWS</a>
-            </li>
+            {% if user.is_authenticated%}
+              <li class="nav-item">
+                <a class="nav-link" href="/tweet_list/" style="text-align: left;">TWITTER NEWS</a>
+              </li>
+            {% endif %}
 
             <li class="nav-item">
               <a class="nav-link" href="" style="text-align: left;">....</a>

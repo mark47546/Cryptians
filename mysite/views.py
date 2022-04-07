@@ -4,23 +4,15 @@ from .forms import CreatePostForm, UpdatePostForm, CreateCommentForm, UpdateComm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from twython import Twython
-import requests, json
-from bs4 import BeautifulSoup
-import re, random 
 from django.conf import settings 
-import tweepy
 from tweepy.auth import OAuthHandler
 from django.contrib.auth.decorators import login_required
-from .twitter import set_active, set_inactive, save_to_db
+from .twitter import *
+from taggit.models import Tag
+from django.template.defaultfilters import slugify
 
+# Create your views here.
 def homepage(request):
-    # try:
-    #     user = request.user 
-    #     name = UserProfile.objects.filter(user = user).first()
-    #     allposts = UserPosts.objects.all().order_by('-timestamp')
-    #     return render(request, "home.html", {"name": name.firstname, "allposts":allposts, "trends":trends_result[0]["trends"]})
-    # except:
-    #     return render(request, "login.html")
     return render(request,'home.html')
 
 
@@ -128,16 +120,22 @@ def deleteComment(request,comment_id,post_id):
 @login_required
 def tweet_list(request):
     save_to_db()
+    stream_tweets()
     tweets = Tweet.objects.order_by('-published_date')
+    texts = MyStreamListener.status_text
+    tweet_names = MyStreamListener.tweets_name
+
     page = request.GET.get('page', 1)
     paginator = Paginator(tweets, 10)
+    # limit_user = Paginator(tweet_names, 10)
+    # limit_tweet = Paginator(texts, 10)
     try:
         tweets = paginator.page(page)
     except PageNotAnInteger:
         tweets = paginator.page(1)
     except EmptyPage:
         tweets = paginator.page(paginator.num_pages)
-    return render(request, 'twitter/twitter.html', {'tweets': tweets})
+    return render(request, 'twitter/twitter.html', {'tweets': tweets, "trends": trends_result[0]["trends"], "texts": texts, "tweet_names":tweet_names})
 
 @login_required
 def tweet_set_inactive(request, pk):
@@ -153,3 +151,5 @@ def tweet_set_active(request, pk):
 def tweet_fetch(request):
     save_to_db()
     return redirect('/tweet_list')
+
+stream_tweets()

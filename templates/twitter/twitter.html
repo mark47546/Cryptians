@@ -7,40 +7,69 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         </head>
         <body class="bg">
-            <div class="twitter-table-title">
-                <h1>TWITTER</h1>
-            </div>
-            <div class="twitter-table">
-                <table>
-                    <tr >
-                        <th class="tweet-column">Tweet</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                        {% if user.is_superuser %}
-                        <th>Status Control</th>
-                        {% endif %}
-                    </tr>
-                    {% for tweet in tweets %}
-                        <tr>
-                            <td class="tweet-column" scope="row">{{ tweet.tweet_text }} </td>
-                            <td>{% if tweet.is_active %}<span class="badge badge-pill badge-success">Active</span>{% endif %}</td>
-                            <td class = "date-column"style="white-space:nowrap;">{{ tweet.published_date }}</td>
-                            {% if user.is_superuser %}
-                            <td>{% if tweet.is_active %}
-                                <a class="btn btn-primary btn-sm" href="{% url 'mysite:tweet_set_inactive' pk=tweet.tweet_id %}" role="button">Deactivate</a>
-                                {% else %}
-                                <a class="btn btn-success btn-sm" href="{% url 'mysite:tweet_set_active' pk=tweet.tweet_id %}" role="button">Activate</a>
+            <div class="container-lg">
+
+                <div class="table-wrapper">
+                    
+                    <div class="twitter-table-title">
+                        <h1>TWITTER</h1>
+                    </div>
+                    <div class="twitter-table">
+                        <table class="center">
+                            <tr >
+                                <th class="tweet-column tweet-header-column">Tweet</th>
+                                <th class ="tweet-header-column">Status</th>
+                                <th class ="tweet-header-column">Date</th>
+                                {% if user.is_superuser %}
+                                <th class ="tweet-header-column">Control</th>
                                 {% endif %}
-                            </td>
-                            {% endif %}
-                        </tr>
-                    {% endfor %}
-                </table>
+                            </tr>
+                            {% for tweet in tweets %}
+                            <tr>
+                                <td class="tweet-column" scope="row"><p>{{ tweet.tweet_text }} </p></td>
+                                <td>{% if tweet.is_active %}<span class="badge badge-pill badge-success">Active</span>{% endif %}</td>
+                                <td class = "date-column"style="white-space:nowrap;">{{ tweet.published_date }}</td>
+                                {% if user.is_superuser %}
+                                <td>{% if tweet.is_active %}
+                                    <a class="btn btn-primary btn-sm" href="{% url 'mysite:tweet_set_inactive' pk=tweet.tweet_id %}" role="button">Deactivate</a>
+                                    {% else %}
+                                    <a class="btn btn-success btn-sm" href="{% url 'mysite:tweet_set_active' pk=tweet.tweet_id %}" role="button">Activate</a>
+                                    {% endif %}
+                                </td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                            {% for trend in trends %}
+                            <tr>
+                                <td>
+                                    <a href="{{trend.url}}">{{trend.name}}</a>
+                                    {% if trend.tweet_volume %}
+                                    <p>{{trend.tweet_volume | get_digit:"2"}}k tweets</p>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% for text in texts %}
+                            <tr>
+                                <td>
+                                    <p>{{text}}</p>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% for tweet_name in tweet_names %}
+                            <tr>
+                                <td>
+                                    <p>{{tweet_name}}</p>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
             </div>
         </body>
     </html>
-  
-{% endblock %}
+            
+            {% endblock %}

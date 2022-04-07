@@ -55,6 +55,7 @@
 body, html {
 	height: 100%;
 	font-family: Poppins-Regular, sans-serif;
+  background: #333333;
 }
 
 /*---------------------------------------------*/
@@ -490,6 +491,7 @@ body {
   max-width: 1350px;
   margin: 30px auto;
   background: #fff;
+  /* background: #333333; */
   padding: 20px;	
   box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
@@ -583,15 +585,30 @@ body {
   margin-bottom: 50px;
 }
 
+.center {
+  margin-left: auto;
+  margin-right: auto;
+} 
+
 .twitter-table{
   max-width: 100%;
-  margin-left: 15%;
-  margin-right: 15%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .tweet-column{
-  width:800px !important;
+  width:800px;
   padding:10px 20px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.tweet-header-column{
+  /* border-bottom: 1px gray groove; */
+  margin-bottom: 10px;
+  /* border-radius: 10px 10px 0 0; */
+  background: #F5F7FA;
 }
 .date-column{
   max-width: 50% !important;
