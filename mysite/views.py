@@ -122,20 +122,19 @@ def tweet_list(request):
     save_to_db()
     stream_tweets()
     tweets = Tweet.objects.order_by('-published_date')
-    texts = MyStreamListener.status_text
-    tweet_names = MyStreamListener.tweets_name
+    texts = MyStreamListener.status_text.order_by('MyStreamListener.created_at')[:10]
+    tweets_names = MyStreamListener.tweets_name.order_by('MyStreamListener.created_at')[:10]
 
     page = request.GET.get('page', 1)
     paginator = Paginator(tweets, 10)
-    # limit_user = Paginator(tweet_names, 10)
-    # limit_tweet = Paginator(texts, 10)
+    
     try:
         tweets = paginator.page(page)
     except PageNotAnInteger:
         tweets = paginator.page(1)
     except EmptyPage:
         tweets = paginator.page(paginator.num_pages)
-    return render(request, 'twitter/twitter.html', {'tweets': tweets, "trends": trends_result[0]["trends"], "texts": texts, "tweet_names":tweet_names})
+    return render(request, 'twitter/twitter.html', {'tweets': tweets, "trends": trends_result[0]["trends"], "texts": texts, "tweets_names":tweets_names})
 
 @login_required
 def tweet_set_inactive(request, pk):
@@ -152,4 +151,4 @@ def tweet_fetch(request):
     save_to_db()
     return redirect('/tweet_list')
 
-stream_tweets()
+# stream_tweets()

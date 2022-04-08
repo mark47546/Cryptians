@@ -40,6 +40,9 @@ class Tweet(models.Model):
     tweet_text = models.TextField()
     published_date = models.DateTimeField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
+    # tweets_name = models.CharField(max_length=250, null=True, blank=True)
+    # status_text = models.TextField()
+    # created_at = models.TimeField()
 
     def __str__(self):
         return self.tweet_text
