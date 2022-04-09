@@ -9,7 +9,6 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  text-align: center;
 }
 
 .home {
@@ -55,7 +54,6 @@
 body, html {
 	height: 100%;
 	font-family: Poppins-Regular, sans-serif;
-  background: #333333;
 }
 
 /*---------------------------------------------*/
@@ -594,6 +592,8 @@ body {
   max-width: 100%;
   margin-left: 5%;
   margin-right: 5%;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .tweet-column{

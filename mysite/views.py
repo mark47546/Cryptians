@@ -26,7 +26,6 @@ def allPost(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     common_tags = Post.tags.most_common()[:4]
-
     return render(request,'post/all_post.html',{'post':page_obj,'common_tags':common_tags})
 
 def tagged(request, slug):
@@ -119,36 +118,14 @@ def deleteComment(request,comment_id,post_id):
 
 @login_required
 def tweet_list(request):
-    save_to_db()
-    stream_tweets()
+
+    search = request.GET.get('search')
     tweets = Tweet.objects.order_by('-published_date')
-    texts = MyStreamListener.status_text.order_by('MyStreamListener.created_at')[:10]
-    tweets_names = MyStreamListener.tweets_name.order_by('MyStreamListener.created_at')[:10]
+    if search:
+        tweets = tweets.filter(Q(tweet_text__icontains=search) & Q(tweet_text__icontains=search))
 
-    page = request.GET.get('page', 1)
     paginator = Paginator(tweets, 10)
-    
-    try:
-        tweets = paginator.page(page)
-    except PageNotAnInteger:
-        tweets = paginator.page(1)
-    except EmptyPage:
-        tweets = paginator.page(paginator.num_pages)
-    return render(request, 'twitter/twitter.html', {'tweets': tweets, "trends": trends_result[0]["trends"], "texts": texts, "tweets_names":tweets_names})
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
-@login_required
-def tweet_set_inactive(request, pk):
-    set_inactive(pk)
-    return redirect('/tweet_list')
-
-@login_required
-def tweet_set_active(request, pk):
-    set_active(pk)
-    return redirect('/tweet_list')
-
-@login_required
-def tweet_fetch(request):
-    save_to_db()
-    return redirect('/tweet_list')
-
-# stream_tweets()
+    return render(request, 'twitter/twitter.html', {'tweets': page_obj})
