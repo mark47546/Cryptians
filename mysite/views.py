@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect
-from .models import Post, Comment
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Post, Comment, Tweet
 from .forms import CreatePostForm, UpdatePostForm, CreateCommentForm, UpdateCommentForm
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
-from taggit.models import Tag
-from .forms import CreatePostForm
-from django.shortcuts import render, get_object_or_404
+from twython import Twython
+from django.conf import settings 
+from tweepy.auth import OAuthHandler
+from django.contrib.auth.decorators import login_required
+from .twitter import *
 from taggit.models import Tag
 from django.template.defaultfilters import slugify
 
@@ -24,7 +26,6 @@ def allPost(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     common_tags = Post.tags.most_common()[:4]
-
     return render(request,'post/all_post.html',{'post':page_obj,'common_tags':common_tags})
 
 def tagged(request, slug):
@@ -114,3 +115,17 @@ def deleteComment(request,comment_id,post_id):
     else:
         pass
     return redirect(f"/allPost/{get_comment_id.post.id}")
+
+@login_required
+def tweet_list(request):
+
+    search = request.GET.get('search')
+    tweets = Tweet.objects.order_by('-published_date')
+    if search:
+        tweets = tweets.filter(Q(tweet_text__icontains=search) & Q(tweet_text__icontains=search))
+
+    paginator = Paginator(tweets, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'twitter/twitter.html', {'tweets': page_obj})

@@ -1,0 +1,107 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        <body class="bg">
+            <div class="container-lg">
+                <div class="table-responsive">
+                  <div class="table-wrapper">
+                    <div class="verticalLine">
+                        <h1 style="margin-top: 10px; margin-bottom: 20px;">Twitter News
+                            <form class="form-inline my-lg-0" action="" style="float: right; ">
+                                <div class="wrap-input100 validate-input" style="width: auto; margin-bottom: 15px;">
+                                    <input class="input100 form-control mr-sm-2" type="search" placeholder="Search Twitter" aria-label="Search" name="search" style="width: 250px; height: 45px; max-width: 100%;">
+                                    <span class="focus-input100" style="width: 250px; max-width: 100%;"></span>
+                                    <span class="symbol-input100">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <button class="btn" type="submit" style="height: 45px; font-weight: bold; border-radius: 80px; margin-bottom: 15px; border-color: #ebad08; color: #ebad08;">Search</button>
+                              </form>
+                    </h1>
+                    </div>
+                    <hr style="margin-bottom: 30px;">
+                      <p>
+                        <a href="/tweet_list/" class="badge badge-secondary">All TAGS</a>
+                        <a href="/tweet_list/?search=bitcoin" class="badge badge-success">Bitcoin</a>
+                        <a href="/tweet_list/?search=ethereum" class="badge badge-success">Ethereum</a>
+                        <a href="/tweet_list/?search=Binance" class="badge badge-success">Binance</a>
+                        <a href="/tweet_list/?search=cardano" class="badge badge-success">Cardano</a>
+                        <a href="/tweet_list/?search=Litecoin" class="badge badge-success">Litecoin</a>
+                        <a href="/tweet_list/?search=crypto" class="badge badge-success">Crypto</a>
+                        <a href="/tweet_list/?search=nft" class="badge badge-success">NFT</a>
+                        <a href="/tweet_list/?search=metaverse" class="badge badge-success">Metaverse</a>
+                      </p>
+                      <div class="twitter-table" style="overflow-x: auto;">
+                        <table class="center">
+                            <tr align="center">
+                                <th class="tweet-header-column">Name</th>
+                                <th class ="tweet-column tweet-header-column">Tweet</th>
+                                <th class ="tweet-header-column">Date</th>
+                            </tr>
+                            {% for tweet in tweets %}
+                            <tr>
+                                <td class="date-column" scope="row"><p>{{ tweet.tweet_name }} </p></td>
+                                <td class="tweet-column" scope="row"><p>{{ tweet.tweet_text }} </p></td>
+                                <td class="date-column"style="white-space:nowrap;">{{ tweet.published_date }}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                            {% if tweets.has_previous %}
+                                <li class="page-item">
+                                <a class="page-link" href="?page={{ tweets.previous_page_number }}" style="color: #af793afd;">Previous</a>
+                            </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                            </li>
+                            {% endif %}
+                    
+                            {% if tweets.number|add:'-4' > 1 %}
+                                <li class="page-item"><a class="page-link" href="?page={{ tweets.number|add:'-5' }}">&hellip;</a></li>
+                            {% endif %}
+                    
+                            {% for i in tweets.paginator.page_range %}
+                                {% if tweets.number == i %}
+                                    <li class="page-item active" aria-current="page">
+                                <span class="page-link" style="background-color: #af793afd; border-color: #af793afd;">
+                                    {{ i }}
+                                    <span class="sr-only">(current)</span>
+                                </span>
+                                </li>
+                                {% elif i > tweets.number|add:'-5' and i < tweets.number|add:'5' %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ i }}" style="color: #af793afd;">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                    
+                            {% if tweets.paginator.num_pages > tweets.number|add:'4' %}
+                            <li class="page-item"><a class="page-link" href="?page={{ tweets.number|add:'5' }}">&hellip;</a></li>
+                            {% endif %}
+                    
+                            {% if tweets.has_next %}
+                                <li class="page-item">
+                                <a class="page-link" href="?page={{ tweets.next_page_number }}" style="color: #af793afd;">Next</a>
+                            </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>     
+        </body>
+    </html>
+            
+            {% endblock %}

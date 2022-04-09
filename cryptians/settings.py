@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+from twython import Twython
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -153,3 +154,10 @@ LOGOUT_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
+TWITTER_API_KEY = 'W2mDDh5w4BHZblR9tGiTOiHG0'
+TWITTER_API_KEY_SECRET = 'F9IPLi9VBWNTjDz2X6HVgQWVE4zQIdjTqEKOIsVuprj8VQB8WH'
+TWITTER_BEARER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAAD4NawEAAAAAOXkc2bYfMvh4QFxQy4kN02RbnvU%3DIQdQAdMdhemq07HCrqyuTdqaDNAp1CdEOeT0NgskgU5V2YdSID'
+TWITTER_ACCESS_TOKEN = '1507008482481868820-zfm9W8VhFSbXzYtkgTKS8w0zOFfO4O'
+TWITTER_ACCESS_TOKEN_SECRET = '3RXm3LJ0oS9E4yuqByvwNFAlEmisjNUe43fXfTialHyn6'
+
+twitter = Twython(TWITTER_API_KEY, TWITTER_API_KEY_SECRET, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)

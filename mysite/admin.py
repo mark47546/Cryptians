@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Comment
+from .models import Post, Comment, Tweet
 from django.db import models
 from tinymce.widgets import TinyMCE
 
@@ -15,4 +15,5 @@ class textEditorAdmin(admin.ModelAdmin):
    
 admin.site.register(Post)
 admin.site.register(Comment)
+admin.site.register(Tweet)
 
