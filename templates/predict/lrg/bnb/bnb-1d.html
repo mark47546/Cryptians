@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% block content %}
+<DOCTYPE html>
+<html lang="en">
+<head>
+    <mate charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNB 1D LRG | Cryptians</title>
+</head>
+<body>
+    <div class="table-wrapper">
+        <nav aria-label="breadcrumb" style="margin-bottom: 30px;">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/predict">Prediction</a></li>
+                <li class="breadcrumb-item active" aria-current="page">BNB 1D | LRG</li>
+            </ol>
+        </nav>
+        <div>
+            <h1>Predict Binance 1 day with "Linear regression"</h1>
+            {{ lrg_bnb_1D | safe}}
+        </div>  
+    </div>
+</body>
+</html>
+{% endblock %}
