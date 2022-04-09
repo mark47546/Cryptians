@@ -1,0 +1,123 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta http-equiv="refresh" content="1800">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Prediction | Cryptians</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/select-predict.css' %}">
+    </head>
+    <body class="bg">
+        <div class="container-lg">
+            <div class="table-wrapper">
+                <h1 class="w3-center">SELECT COIN</h1>
+                <div class="container">
+                    <div class="radio-tile-group">
+
+                      <div class="input-container">
+                        <input class="radio-button select-coin" type="radio" name="coin" value="btc"/>
+                        <div class="radio-tile">
+                            <img class="w3-image w3-round-large" src="{% static 'images/btc.png' %}" alt="Buildings">
+                            <label class="radio-tile-label">Bitcoin</label>
+                        </div>
+                      </div>
+                  
+                      <div class="input-container">
+                        <input class="radio-button" type="radio" name="coin" value="eth"/>
+                        <div class="radio-tile">
+                            <img class="w3-image w3-round-large" src="{% static 'images/eth.png' %}" alt="Buildings">
+                            <label class="radio-tile-label">Ethereum</label>
+                        </div>
+                      </div>
+                  
+                      <div class="input-container">
+                        <input class="radio-button" type="radio" name="coin" value="bnb"/>
+                        <div class="radio-tile">
+                            <img class="w3-image w3-round-large" src="{% static 'images/bnb.png' %}" alt="Buildings">
+                            <label class="radio-tile-label">Binance</label>
+                        </div>
+                      </div>
+                  
+                      <div class="input-container">
+                        <input class="radio-button" type="radio" name="coin" value="ada"/>
+                        <div class="radio-tile">
+                            <img class="w3-image w3-round-large" src="{% static 'images/ada.png' %}" alt="Buildings">
+                            <label class="radio-tile-label">Cardano</label>
+                        </div>
+                      </div>
+
+                      <div class="input-container">
+                        <input class="radio-button" type="radio" name="coin" value="ltc"/>
+                        <div class="radio-tile">
+                            <img class="w3-image w3-round-large" src="{% static 'images/ltc.png' %}" alt="Buildings">
+                            <label class="radio-tile-label">Litecoin</label>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <hr style="margin-bottom: 30px;">
+                <lable style="margin-left: 25px; font-size: 18px;"><b style="color: red; font-size: 20px;">* </b><b>Select the model that you want to use :</b></lable>
+                <div class="wrap-input100 validate-input" style="margin-bottom: 40px; margin-top: 15px;">
+                    <select class="select-model input100" id="select-model">
+                        <option value="">Select Model</option>
+                        <option value="/lstm">Long short-term memory</option>
+                        <option value="/lrg">Linear regression</option>
+                        <option value="...">....</option>
+                    </select>
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                </div>
+
+                <lable style="margin-left: 25px; font-size: 18px;"><b style="color: red; font-size: 20px;">* </b><b>Select the time frame that you want to predict :</b></lable>
+                <div class="wrap-input100 validate-input" style="margin-bottom: 40px; margin-top: 15px;">
+                    <select class="select-tf input100" id="select-tf">
+                        <option value="">Select Time frame</option>
+                        <option value="/30m">30 minute</option>
+                        <option value="/1h">1 Hour</option>
+                        <option value="/1d">1 Day</option>
+                    </select>
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <button id="btn" class="btn btn-primary" style="background-color: #cc8e45; border-color: #cc8e45;">Let Predictions!!</button>
+            </div>        
+        </div>
+    </body>
+    <script>
+
+        const btn = document.querySelector('#btn');
+        const radioButtons = document.querySelectorAll('input[name="coin"]');
+        btn.addEventListener("click", () => {
+            let selectedCoin;
+            for (const radioButton of radioButtons) {
+                if (radioButton.checked) {
+                    coin_category = radioButton.value;
+                    break;
+                }
+            }
+            
+            model = document.querySelector("#select-model");
+            tf = document.querySelector("#select-tf");
+            model_category = model.options[model.selectedIndex].value;
+            tf_category = tf.options[tf.selectedIndex].value;
+            if (model_category == "") {
+                window.alert("Please select all of options");
+            } else {
+                redirect = coin_category+model_category+tf_category;
+                window.location.href = window.location.href + redirect;
+
+            }
+        });
+    </script>
+</html>
+{% endblock %}
