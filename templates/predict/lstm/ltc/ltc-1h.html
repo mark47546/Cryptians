@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% block content %}
+<DOCTYPE html>
+<html lang="en">
+<head>
+    <mate charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LTC 1H LSTM | Cryptians</title>
+</head>
+<body>
+    <div class="table-wrapper">
+        <nav aria-label="breadcrumb" style="margin-bottom: 30px;">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/predict">Prediction</a></li>
+                <li class="breadcrumb-item active" aria-current="page">LTC 1H | LSTM</li>
+            </ol>
+        </nav>
+        <div>
+            <h1>Predict Litecoin 1 hour with "Long short-term memory" </h1>
+            {{ lstm_ltc_1H | safe}}
+        </div>  
+    </div>
+</body>
+</html>
+{% endblock %}
