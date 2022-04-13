@@ -1,6 +1,6 @@
 from pyexpat import model
 from django.shortcuts import render, redirect
-from mysite.models import btc_1D, eth_1D, bnb_1D, ada_1D, ltc_1D
+from predict.models import btc_1D, eth_1D, bnb_1D, ada_1D, ltc_1D
 from .models import Trade, demoAccount
 from django.db.models import Q
 from django.core.paginator import Paginator
@@ -49,11 +49,11 @@ def tradeBTC(request):
     get_user = request.user
     account = demoAccount.objects.get(user = get_user.id)
     btc_1d = btc_1D.objects.all().order_by('-id')[:2]
-    if btc_1d[0].predict_LSTM > btc_1d[1].predict_LSTM:
+    if btc_1d[0].predict_LSTM != None and btc_1d[0].predict_LSTM > btc_1d[1].predict_LSTM:
         lstm = "B U Y"
     else:
         lstm = "S E L L"
-    if btc_1d[0].predict_LRG > btc_1d[1].predict_LRG:
+    if btc_1d[0].predict_LRG != None and btc_1d[0].predict_LRG > btc_1d[1].predict_LRG:
         lrg = "B U Y"
     else:
         lrg = "S E L L"
@@ -97,11 +97,11 @@ def tradeETH(request):
     get_user = request.user
     account = demoAccount.objects.get(user = get_user.id)
     eth_1d = eth_1D.objects.all().order_by('-id')[:2]
-    if eth_1d[0].predict_LSTM > eth_1d[1].predict_LSTM:
+    if eth_1d[0].predict_LSTM != None and eth_1d[0].predict_LSTM > eth_1d[1].predict_LSTM:
         lstm = "B U Y"
     else:
         lstm = "S E L L"
-    if eth_1d[0].predict_LRG > eth_1d[1].predict_LRG:
+    if eth_1d[0].predict_LSTM != None and eth_1d[0].predict_LRG > eth_1d[1].predict_LRG:
         lrg = "B U Y"
     else:
         lrg = "S E L L"
@@ -144,11 +144,11 @@ def tradeBNB(request):
     get_user = request.user
     account = demoAccount.objects.get(user = get_user.id)
     bnb_1d = bnb_1D.objects.all().order_by('-id')[:2]
-    if bnb_1d[0].predict_LSTM > bnb_1d[1].predict_LSTM:
+    if  bnb_1d[0].predict_LSTM != None and bnb_1d[0].predict_LSTM > bnb_1d[1].predict_LSTM:
         lstm = "B U Y"
     else:
         lstm = "S E L L"
-    if bnb_1d[0].predict_LRG > bnb_1d[1].predict_LRG:
+    if bnb_1d[0].predict_LRG != None and bnb_1d[0].predict_LRG > bnb_1d[1].predict_LRG:
         lrg = "B U Y"
     else:
         lrg = "S E L L"
@@ -191,11 +191,11 @@ def tradeADA(request):
     get_user = request.user
     account = demoAccount.objects.get(user = get_user.id)
     ada_1d = ada_1D.objects.all().order_by('-id')[:2]
-    if ada_1d[0].predict_LSTM > ada_1d[1].predict_LSTM:
+    if ada_1d[0].predict_LSTM != None and ada_1d[0].predict_LSTM > ada_1d[1].predict_LSTM:
         lstm = "B U Y"
     else:
         lstm = "S E L L"
-    if ada_1d[0].predict_LRG > ada_1d[1].predict_LRG:
+    if ada_1d[0].predict_LRG != None and ada_1d[0].predict_LRG > ada_1d[1].predict_LRG:
         lrg = "B U Y"
     else:
         lrg = "S E L L"
@@ -240,11 +240,11 @@ def tradeLTC(request):
     get_user = request.user
     account = demoAccount.objects.get(user = get_user.id)
     ltc_1d = ltc_1D.objects.all().order_by('-id')[:2]
-    if ltc_1d[0].predict_LSTM > ltc_1d[1].predict_LSTM:
+    if ltc_1d[0].predict_LSTM != None and ltc_1d[0].predict_LSTM > ltc_1d[1].predict_LSTM:
         lstm = "B U Y"
     else:
         lstm = "S E L L"
-    if ltc_1d[0].predict_LRG > ltc_1d[1].predict_LRG:
+    if ltc_1d[0].predict_LRG != None and ltc_1d[0].predict_LRG > ltc_1d[1].predict_LRG:
         lrg = "B U Y"
     else:
         lrg = "S E L L"
