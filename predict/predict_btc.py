@@ -330,202 +330,64 @@ def btc_1D_LRG_predict():
     #----------------------------------------------------------------------------
 
 
+def btc_30M_MACD_predict():
+    data = yf.download(tickers='BTC-USD', period = '28800M', interval = '30M')
+    short_ma13 = data['Close'].rolling(13).mean()
+    mid_ma21 = data['Close'].rolling(21).mean()
+    long_ma55 = data['Close'].rolling(55).mean()
+    data['shortma13'] = short_ma13
+    data['midma21'] = mid_ma21
+    data['longma55'] = long_ma55
+    data = data.dropna()
+    for i in range(len(data)):
+        new_data = data[i:i+1]
+        if (new_data.iloc[0]['shortma13'] > new_data.iloc[0]['midma21'] > new_data.iloc[0]['longma55']):
+            predictMACD = "buy"
+        elif (new_data.iloc[0]['longma55'] > new_data.iloc[0]['midma21'] > new_data.iloc[0]['shortma13']):
+            predictMACD = "sell"
+        else:
+            predictMACD = "hold"
+        Datetime = (new_data.reset_index()['Datetime'][0])
+        btc_30M.objects.filter(Datetime=Datetime,predict_MACD=None).update(predict_MACD=predictMACD)
+
+def btc_1H_MACD_predict():
+    data = yf.download(tickers='BTC-USD', period = '72000M', interval = '60M')
+    data = data[:-1]
+    short_ma13 = data['Close'].rolling(13).mean()
+    mid_ma21 = data['Close'].rolling(21).mean()
+    long_ma55 = data['Close'].rolling(55).mean()
+    data['shortma13'] = short_ma13
+    data['midma21'] = mid_ma21
+    data['longma55'] = long_ma55
+    data = data.dropna()
+    for i in range(len(data)):
+        new_data = data[i:i+1]
+        if (new_data.iloc[0]['shortma13'] > new_data.iloc[0]['midma21'] > new_data.iloc[0]['longma55']):
+            predictMACD = "buy"
+        elif (new_data.iloc[0]['longma55'] > new_data.iloc[0]['midma21'] > new_data.iloc[0]['shortma13']):
+            predictMACD = "sell"
+        else:
+            predictMACD = "hold"
+        Datetime = (new_data.reset_index()['Datetime'][0])
+        btc_1H.objects.filter(Datetime=Datetime,predict_MACD=None).update(predict_MACD=predictMACD)
+
+def btc_1D_MACD_predict():
+    data = yf.download(tickers='BTC-USD', period = '960D', interval = '1D')
+    short_ma13 = data['Close'].rolling(13).mean()
+    mid_ma21 = data['Close'].rolling(21).mean()
+    long_ma55 = data['Close'].rolling(55).mean()
+    data['shortma13'] = short_ma13
+    data['midma21'] = mid_ma21
+    data['longma55'] = long_ma55
+    data = data.dropna()
+    for i in range(len(data)):
+        new_data = data[i:i+1]
+        if (new_data.iloc[0]['shortma13'] > new_data.iloc[0]['midma21'] > new_data.iloc[0]['longma55']):
+            predictMACD = "buy"
+        elif (new_data.iloc[0]['longma55'] > new_data.iloc[0]['midma21'] > new_data.iloc[0]['shortma13']):
+            predictMACD = "sell"
+        else:
+            predictMACD = "hold"
+        Date = (new_data.reset_index()['Date'][0])
+        btc_1D.objects.filter(Date=Date,predict_MACD=None).update(predict_MACD=predictMACD)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def btc_31230M_LSTM_predict():
-    df = yf.download(tickers='BTC-USD', period = '37740M', interval = '30M')
-    #creating dataframe
-    data = df.sort_index(ascending=True, axis=0)
-    new_data = pd.DataFrame(index=range(0,len(df)),columns=['Datetime', 'Close'])
-    for i in range(0,len(data)):
-        new_data['Datetime'][i] = data.reset_index()['Datetime'][i]
-        new_data['Close'][i] = data['Close'][i]
-    #setting index
-    new_data.index = new_data.Datetime
-    new_data.drop('Datetime', axis=1, inplace=True)
-    new_data
-    #creating and split data to train and valid
-    dataset = new_data.values
-
-    train = dataset[0:1100,:]
-    valid = dataset[1100:,:]
-    scaler = MinMaxScaler(feature_range=(0, 1))
-    scaled_data = scaler.fit_transform(dataset)
-
-    x_train, y_train = [], []
-    for i in range(60,len(train)):
-        x_train.append(scaled_data[i-60:i,0])
-        y_train.append(scaled_data[i,0])
-    x_train, y_train = np.array(x_train), np.array(y_train)
-
-    x_train.shape
-
-    x_train = np.reshape(x_train, (x_train.shape[0],x_train.shape[1],1))
-    x_train.shape
-    #create and fit the LSTM network
-    model = Sequential()
-    model.add(LSTM(units=50, return_sequences=True, input_shape=(x_train.shape[1],1)))
-    model.add(LSTM(units=50))
-    model.add(Dense(1))
-
-    model.compile(loss='mean_squared_error', optimizer='adam')
-    model.fit(x_train, y_train, epochs=10, batch_size=1, verbose=2)
-
-    #predicting 339 values, using past 60 from the train data
-    inputs = new_data[len(new_data) - len(valid) - 600:].values
-    inputs = inputs.reshape(-1,1)
-    inputs  = scaler.transform(inputs)
-
-    X_test = []
-    for i in range(600,inputs.shape[0]):
-        X_test.append(inputs[i-600:i,0])
-    X_test = np.array(X_test)
-
-    X_test = np.reshape(X_test, (X_test.shape[0],X_test.shape[1],1))
-    predictions = model.predict(X_test)
-    predictions = scaler.inverse_transform(predictions)
-    predict_valid = data[len(data)-len(predictions):]
-    predict_valid['Predictions'] = predictions
-    print(predict_valid)
-
-    #-- save perdict value to db ------------------------------------------------------------------------------------------------------
-    for i in range(len(predict_valid)-1):
-        new_df = predict_valid[i+1:i+2]
-        find_btc_30M = btc_30M.objects.filter(Datetime = new_df.reset_index()['Datetime'][0], predict_LSTM = None)
-        find_btc_30M.update(predict_LSTM = float(new_df.reset_index()['Predictions'].values))
-    #----------------------------------------------------------------------------
-
-    rmspe = (np.sqrt(np.mean(np.square((valid - predictions) / valid)))) * 100
-    print(f"RMSPE_of_BTC_TF_30M = {rmspe}")
-
-    
-
-def btc_1231D_LSTM_predict():
-    df = yf.download(tickers='BTC-USD', period = '1258D', interval = '1D')
-    #creating dataframe
-    data = df.sort_index(ascending=True, axis=0)
-    new_data = pd.DataFrame(index=range(0,len(df)),columns=['Date', 'Close'])
-    for i in range(0,len(data)):
-        new_data['Date'][i] = data.reset_index()['Date'][i]
-        new_data['Close'][i] = data['Close'][i]
-    #setting index
-    new_data.index = new_data.Date
-    new_data.drop('Date', axis=1, inplace=True)
-    new_data
-    #creating and split data to train and valid
-    dataset = new_data.values
-
-    train = dataset[0:919,:]
-    valid = dataset[919:,:]
-    scaler = MinMaxScaler(feature_range=(0, 1))
-    scaled_data = scaler.fit_transform(dataset)
-
-    x_train, y_train = [], []
-    for i in range(60,len(train)):
-        x_train.append(scaled_data[i-60:i,0])
-        y_train.append(scaled_data[i,0])
-    x_train, y_train = np.array(x_train), np.array(y_train)
-
-    x_train.shape
-
-    x_train = np.reshape(x_train, (x_train.shape[0],x_train.shape[1],1))
-    x_train.shape
-    #create and fit the LSTM network
-    model = Sequential()
-    model.add(LSTM(units=50, return_sequences=True, input_shape=(x_train.shape[1],1)))
-    model.add(LSTM(units=50))
-    model.add(Dense(1))
-
-    model.compile(loss='mean_squared_error', optimizer='adam')
-    model.fit(x_train, y_train, epochs=10, batch_size=1, verbose=2)
-
-    #predicting 339 values, using past 60 from the train data
-    inputs = new_data[len(new_data) - len(valid) - 60:].values
-    inputs = inputs.reshape(-1,1)
-    inputs  = scaler.transform(inputs)
-
-    X_test = []
-    for i in range(60,inputs.shape[0]):
-        X_test.append(inputs[i-60:i,0])
-    X_test = np.array(X_test)
-
-    X_test = np.reshape(X_test, (X_test.shape[0],X_test.shape[1],1))
-    predictions = model.predict(X_test)
-    predictions = scaler.inverse_transform(predictions)
-    predict_valid = data[len(data)-len(predictions):]
-    predict_valid['Predictions'] = predictions
-    print(predict_valid)
-
-    #-- save perdict value to db ------------------------------------------------------------------------------------------------------
-    for i in range(len(predict_valid)-1):
-        new_df = predict_valid[i+1:i+2]
-        find_btc_1D = btc_1D.objects.filter(Date = new_df.reset_index()['Date'][0])
-        find_btc_1D.update(predict_LSTM = float(new_df.reset_index()['Predictions'].values))
-    #----------------------------------------------------------------------------
-
-    rmspe = (np.sqrt(np.mean(np.square((valid - predictions) / valid)))) * 100
-    print(f"RMSPE_of_BTC_TF_1D = {rmspe}")
