@@ -1,0 +1,34 @@
+{% extends 'index.html' %}
+{% block content %}
+<DOCTYPE html>
+<html lang="en">
+<head>
+    <mate charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETH 1D MACD | Cryptians</title>
+</head>
+<body>
+    <div class="table-wrapper">
+        <nav aria-label="breadcrumb" style="margin-bottom: 30px;">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/predict">Prediction</a></li>
+                <li class="breadcrumb-item active" aria-current="page">ETH 1D | MACD</li>
+            </ol>
+        </nav>
+        <div>
+            <h1>Predict Ethereum 1 day with "Moving Average Convergence Divergence" </h1>
+            <div style="margin-top: 20px;">
+                {% if last_predict.predict_MACD == 'buy' %}
+                    <a class="btn btn-success fs-20" style="width: 100%; color:white;">Predict = B U Y</a>
+                {% elif last_predict.predict_MACD == 'sell' %}
+                    <a class="btn btn-danger fs-20" style="width: 100%; color:white;">Predict = S E L L</a>
+                {% else %}
+                    <a class="btn btn-primary fs-20" style="width: 100%; color:white;">Predict = H O L D</a>
+                {% endif %}
+            </div>
+            {{ macd_eth_1D | safe}}
+        </div>  
+    </div>
+</body>
+</html>
+{% endblock %}

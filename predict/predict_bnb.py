@@ -328,3 +328,65 @@ def bnb_1D_LRG_predict():
         find_bnb_1D = bnb_1D.objects.filter(Date = new_df.reset_index()['Date'][0], predict_LRG = None)
         find_bnb_1D.update(predict_LRG = float(new_df.reset_index()['Predictions'].values-error_value))
     #----------------------------------------------------------------------------
+
+def bnb_30M_MACD_predict():
+    data = yf.download(tickers='BNB-USD', period = '28800M', interval = '30M')
+    short_ma13 = data['Close'].rolling(13).mean()
+    mid_ma21 = data['Close'].rolling(21).mean()
+    long_ma55 = data['Close'].rolling(55).mean()
+    data['shortma13'] = short_ma13
+    data['midma21'] = mid_ma21
+    data['longma55'] = long_ma55
+    data = data.dropna()
+    for i in range(len(data)):
+        new_data = data[i:i+1]
+        if (new_data.iloc[0]['shortma13'] > new_data.iloc[0]['midma21'] > new_data.iloc[0]['longma55']):
+            predictMACD = "buy"
+        elif (new_data.iloc[0]['longma55'] > new_data.iloc[0]['midma21'] > new_data.iloc[0]['shortma13']):
+            predictMACD = "sell"
+        else:
+            predictMACD = "hold"
+        Datetime = (new_data.reset_index()['Datetime'][0])
+        bnb_30M.objects.filter(Datetime=Datetime,predict_MACD=None).update(predict_MACD=predictMACD)
+
+def bnb_1H_MACD_predict():
+    data = yf.download(tickers='BNB-USD', period = '72000M', interval = '60M')
+    data = data[:-1]
+    short_ma13 = data['Close'].rolling(13).mean()
+    mid_ma21 = data['Close'].rolling(21).mean()
+    long_ma55 = data['Close'].rolling(55).mean()
+    data['shortma13'] = short_ma13
+    data['midma21'] = mid_ma21
+    data['longma55'] = long_ma55
+    data = data.dropna()
+    for i in range(len(data)):
+        new_data = data[i:i+1]
+        if (new_data.iloc[0]['shortma13'] > new_data.iloc[0]['midma21'] > new_data.iloc[0]['longma55']):
+            predictMACD = "buy"
+        elif (new_data.iloc[0]['longma55'] > new_data.iloc[0]['midma21'] > new_data.iloc[0]['shortma13']):
+            predictMACD = "sell"
+        else:
+            predictMACD = "hold"
+        Datetime = (new_data.reset_index()['Datetime'][0])
+        bnb_1H.objects.filter(Datetime=Datetime,predict_MACD=None).update(predict_MACD=predictMACD)
+
+def bnb_1D_MACD_predict():
+    data = yf.download(tickers='BNB-USD', period = '960D', interval = '1D')
+    short_ma13 = data['Close'].rolling(13).mean()
+    mid_ma21 = data['Close'].rolling(21).mean()
+    long_ma55 = data['Close'].rolling(55).mean()
+    data['shortma13'] = short_ma13
+    data['midma21'] = mid_ma21
+    data['longma55'] = long_ma55
+    data = data.dropna()
+    for i in range(len(data)):
+        new_data = data[i:i+1]
+        if (new_data.iloc[0]['shortma13'] > new_data.iloc[0]['midma21'] > new_data.iloc[0]['longma55']):
+            predictMACD = "buy"
+        elif (new_data.iloc[0]['longma55'] > new_data.iloc[0]['midma21'] > new_data.iloc[0]['shortma13']):
+            predictMACD = "sell"
+        else:
+            predictMACD = "hold"
+        Date = (new_data.reset_index()['Date'][0])
+        bnb_1D.objects.filter(Date=Date,predict_MACD=None).update(predict_MACD=predictMACD)
+
