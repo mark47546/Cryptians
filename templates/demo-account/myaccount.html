@@ -1,0 +1,163 @@
+{% extends 'index.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <mate charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Account | Cryptians</title>
+</head>
+<body>
+<div class="table-wrapper">
+{% if user.is_authenticated%}
+<div class="verticalLine">
+    <h1 style="margin-top: 20px; margin-bottom: 20px; margin-left: 30px;">Demo Account
+    <a class="btn add-new text-white product-form" role="button" aria-pressed="true" style="float: right; background-color: #ebad08;" href="history/" ><i class="fa fa-history"></i> Trading History</a>
+  </h1>
+</div>
+<hr style="margin-bottom: 20px;">
+<div style="margin-left: 30px;" class="card-body">
+    <div class="row" style="text-align: center;">
+        <div class="col-md-6">
+            <h2>${{account.balance|floatformat:2|intcomma}}</h2>
+            <a class="fs-17">Equity Value (USD)</a>
+        </div>
+        <div class="col-md-6 verticalLine">
+            {% if percen_profit >= 0 %}
+            <h2 style="color: green;">${{profit|floatformat:2|intcomma}} / +{{percen_profit|floatformat:2|intcomma}}%</h2>
+            {% else %}
+            <h2 style="color: red;">${{profit|floatformat:2|intcomma}} / {{percen_profit|floatformat:2|intcomma}}%</h2>
+            {% endif %}
+            <a class="fs-17">All Profit</a>
+        </div>
+    </div>
+</div>
+
+<div class="w3-container w3-light-grey" style="padding:20px 16px">
+    <div class="p-0">
+        <div class="card-body">
+          <div class="row" style="text-align: center;">
+            <div class="col-md-2">
+              <b>Coin Name</b>
+            </div>
+            <div class="col-md-3 verticalLine">
+              <b>Total</b>
+            </div>
+            <div class="col-md-4 verticalLine">
+                <b>Equity Value(USD)</b>
+            </div>
+            <div class="col-md-3 verticalLine">
+              <b>Actions</b>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="shadow p-2 mb-3 rounded" style="background-color: rgb(250, 250, 250);" >
+        <div class="card-body">
+          <div class="row" style="text-align: center; word-wrap: break-word;">
+            <div class="col-md-2">
+                <img class="w3-image w3-round-large" src="{% static 'images/btc.png' %}" style="height: 30px;">
+              <a class="fs-17">Bitcoin</a>
+            </div>
+            <div class="col-md-3">
+              <a class="fs-17">{{account.btc|intcomma}}</a>
+            </div>
+            <div class="col-md-4">
+              <a class="fs-17">{{btc_to_usd|floatformat:2|intcomma}}</a>
+            </div>
+            <div class="col-md-3">
+                <a href='trade/btc/' class="btn btn-primary" style="background-color: #cc8e45; border-color: #cc8e45;">B U Y / S E L L</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="shadow p-2 mb-3 rounded" style="background-color: rgb(250, 250, 250);" >
+        <div class="card-body">
+          <div class="row" style="text-align: center; word-wrap: break-word;">
+            <div class="col-md-2">
+              <img class="w3-image w3-round-large" src="{% static 'images/eth.png' %}" style="height: 30px;">
+              <a class="fs-17">Ethereum</a>
+            </div>
+            <div class="col-md-3">
+              <a class="fs-17">{{account.eth|intcomma}}</a>
+            </div>
+            <div class="col-md-4">
+              <a class="fs-17">{{eth_to_usd|floatformat:2|intcomma}}</a>
+            </div>
+            <div class="col-md-3">
+                <a href='trade/eth/' class="btn btn-primary" style="background-color: #cc8e45; border-color: #cc8e45;">B U Y / S E L L</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="shadow p-2 mb-3 rounded" style="background-color: rgb(250, 250, 250);" >
+        <div class="card-body">
+          <div class="row" style="text-align: center; word-wrap: break-word;">
+            <div class="col-md-2">
+              <img class="w3-image w3-round-large" src="{% static 'images/bnb.png' %}" style="height: 30px;">
+              <a class="fs-17">Binance</a>
+            </div>
+            <div class="col-md-3">
+              <a class="fs-17">{{account.bnb|intcomma}}</a>
+            </div>
+            <div class="col-md-4">
+              <a class="fs-17">{{bnb_to_usd|floatformat:2|intcomma}}</a>
+            </div>
+            <div class="col-md-3">
+                <a href='trade/bnb/' class="btn btn-primary" style="background-color: #cc8e45; border-color: #cc8e45;">B U Y / S E L L</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="shadow p-2 mb-3 rounded" style="background-color: rgb(250, 250, 250);" >
+        <div class="card-body">
+          <div class="row" style="text-align: center; word-wrap: break-word;">
+            <div class="col-md-2">
+                <img class="w3-image w3-round-large" src="{% static 'images/ada.png' %}" style="height: 30px;">
+              <a class="fs-17">Cardano</a>
+            </div>
+            <div class="col-md-3">
+              <a class="fs-17">{{account.ada|intcomma}}</a>
+            </div>
+            <div class="col-md-4">
+              <a class="fs-17">{{ada_to_usd|floatformat:2|intcomma}}</a>
+            </div>
+            <div class="col-md-3">
+                <a href='trade/ada/' class="btn btn-primary" style="background-color: #cc8e45; border-color: #cc8e45;">B U Y / S E L L</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="shadow p-2 mb-3 rounded" style="background-color: rgb(250, 250, 250);" >
+        <div class="card-body">
+          <div class="row" style="text-align: center; word-wrap: break-word;">
+            <div class="col-md-2">
+                <img class="w3-image w3-round-large" src="{% static 'images/ltc.png' %}" style="height: 30px;">
+              <a class="fs-17">Litecoin</a>
+            </div>
+            <div class="col-md-3">
+              <a class="fs-17">{{account.ltc|intcomma}}</a>
+            </div>
+            <div class="col-md-4">
+              <a class="fs-17">{{ltc_to_usd|floatformat:2|intcomma}}</a>
+            </div>
+            <div class="col-md-3">
+                <a href='trade/ltc/' class="btn btn-primary" style="background-color: #cc8e45; border-color: #cc8e45;">B U Y / S E L L</a>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+</div>
+{% else %}
+    <h1 align="center"><a href="/login" style="font-size: 30px; margin-top: 30px;">You need to login first</a></h1>
+{% endif %}
+
+</body>
+</html>
+{% endblock %}
