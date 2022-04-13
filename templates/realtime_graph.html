@@ -1,0 +1,55 @@
+{% extends 'index.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <mate charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Graph | Cryptians</title>
+</head>
+<body>
+<div class="table-wrapper">
+{% if user.is_authenticated%}
+<h1 style="margin-top: 10px; margin-bottom: 20px; margin-left: 30px;">Real-Time Graph
+<hr style="margin-bottom: 20px;">
+    <div class="tradingview-widget-container">
+        <div id="tradingview_74048"></div>
+        <div class="tradingview-widget-copyright"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js">
+            
+        </script>
+        <script type="text/javascript">
+            
+        new TradingView.widget(
+        {
+        "autosize": true,
+        "symbol": "BINANCE:BTCUSD",
+        "interval": "D",
+        "timezone": "Europe/Zurich",
+        "theme": "Dark",
+        "style": "1",
+        "locale": "en",
+        "toolbar_bg": "#f1f3f6",
+        "enable_publishing": false,
+        "hide_side_toolbar": false,
+        "allow_symbol_change": true,
+        "studies": [
+        "MACD@tv-basicstudies"
+        ],
+        "container_id": "tradingview_74048"
+    }
+        );
+        </script>
+</div>
+</div>
+{% else %}
+    <h1 align="center"><a href="/login" style="font-size: 30px; margin-top: 30px;">You need to login first</a></h1>
+{% endif %}
+
+</body>
+</html>
+{% endblock %}
