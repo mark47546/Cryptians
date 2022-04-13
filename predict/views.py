@@ -121,10 +121,6 @@ scheduler.add_job(predict_1h, 'cron', hour='0-23', minute='5')
 scheduler.add_job(predict_1d, 'cron', hour='8', minute='15')
 scheduler.start()
 atexit.register(lambda: scheduler.shutdown())
-count = 1
-if count == 1:
-    download_all()
-    count+=1
 
 def predict(request):
     return render(request,'predict/predict.html' )
