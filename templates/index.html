@@ -44,11 +44,11 @@
               <li class="nav-item">
                 <a class="nav-link" href="/tweet_list/" style="text-align: left;">TWITTER NEWS</a>
               </li>
-            {% endif %}
 
             <li class="nav-item">
               <a class="nav-link" href="/predict/" style="text-align: left;">PREDICTIONS</a>
             </li>
+            {% endif %}
             </li>
           </ul>
           
@@ -62,6 +62,7 @@
                 {% if user.is_superuser%}
                 <a class="dropdown-item" href="/admin">Admin Page</a>
                 {% endif %}
+                <a class="dropdown-item" href="/demoaccount">Demo Account</a>
                 <a class="dropdown-item" href="/myPost">My Post</a>
                 <a class="dropdown-item" href="/logout">Logout</a>
               </div>

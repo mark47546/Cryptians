@@ -1,0 +1,152 @@
+{% extends 'index.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <mate charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade LTC | Cryptians</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/trade.css' %}">
+</head>
+<body>
+<div class="table-wrapper">
+{% if user.is_authenticated%}
+<nav aria-label="breadcrumb" style="margin-bottom: 30px;">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/demoaccount/">Demo Account</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Trade LTC</li>
+    </ol>
+  </nav>
+    <div class="verticalLine">
+        <h1 style="margin-top: 20px; margin-bottom: 20px; margin-left: 30px;">Trade LTC</h1>
+    </div>
+    <hr style="margin-bottom: 20px;">
+    <div class="card-body">
+        <div class="row g-0" style="height: 80%;">
+            <div class="col-md-8">
+                <div class="tradingview-widget-container">
+                    <div id="tradingview_74048"></div>
+                    <div class="tradingview-widget-copyright"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/tv.js">
+                        
+                    </script>
+                    <script type="text/javascript">
+                        
+                    new TradingView.widget(
+                    {
+                    "autosize": true,
+                    "symbol": "BINANCE:LTCUSD",
+                    "interval": "D",
+                    "timezone": "Europe/Zurich",
+                    "theme": "Dark",
+                    "style": "1",
+                    "locale": "en",
+                    "toolbar_bg": "#f1f3f6",
+                    "enable_publishing": false,
+                    "hide_side_toolbar": false,
+                    "allow_symbol_change": true,
+                    "studies": [
+                    "MACD@tv-basicstudies"
+                    ],
+                    "container_id": "tradingview_74048"
+                }
+                    );
+                    </script>
+                </div>
+            </div>
+            <div class="col-md-4 ps-md-3 pt-3 pt-md-0 d-flex flex-column">
+                <form enctype="multipart/form-data" method="post" onsubmit=" checkForm(this);">
+                {% csrf_token %}
+                {% load static %}
+                {{ form.media }}
+                <p hidden>{% render_field form.account class="form-control" %}
+                          {% render_field form.coin class="form-control" %}
+                </p>
+                <div class="toggle">
+                    <input class="buy" type="radio" name="option" value="buy" id="sizeWeight" checked>
+                    <label for="sizeWeight">B U Y</label>
+                    <input class="sell" type="radio" name="option" value="sell" id="sizeDimensions">
+                    <label for="sizeDimensions">S E L L</label>
+                </div> 
+                <div class="buy-amount">
+
+                    <lable style="margin-left: 25px; font-size: 18px;"><b>You have (USD):</b></lable>
+                    <div class="wrap-input100 validate-input" style="margin-bottom: 40px; margin-top: 5px;">
+                        <input class="input100" type=number value="{{account.balance}}" readonly>
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-usd" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    
+                    <lable style="margin-left: 25px; font-size: 18px;"><b>Buy Total (USD) :</b></lable>
+                    <div class="wrap-input100 validate-input" style="margin-bottom: 40px; margin-top: 5px;">
+                        <input class="input100" type=number step=1 name="buy_amount" value='0' min="0" max={{account.balance}} placeholder="USD">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-usd" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <input type="submit" class="btn btn-success" name="myButton" value="B U Y" style="width: 100%;">
+                </div>
+
+                <div class="sell-amount" style="display:none">
+
+                    <lable style="margin-left: 25px; font-size: 18px;"><b>You have (LTC):</b></lable>
+                    <div class="wrap-input100 validate-input" style="margin-bottom: 40px; margin-top: 5px;">
+                        <input class="input100" type=number value="{{account.ltc}}" readonly>
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-usd" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <lable style="margin-left: 25px; font-size: 18px;"><b>Sell Total (LTC):</b></lable>
+                    <div class="wrap-input100 validate-input" style="margin-bottom: 40px; margin-top: 5px;">
+                        <input class="input100" type=number step=0.000000000000000001 name="sell_amount" value=0 min="0" max={{account.ltc}} placeholder="LTC">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-usd" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <input type="submit" class="btn btn-danger" name="myButton" value="S E L L" style="width: 100%;">
+                </div>
+                <div class="w3-container w3-light-grey" style="padding:20px 16px; margin-top: 30px;">
+                    <a>Predict from models:<a>
+                    <a class="btn btn-primary fs-17" href="/predict/ltc/lstm/1d" style="width: 100%; color: white; margin-bottom:10px;">LSTM model "{{lstm}}"</a>
+
+                    <a class="btn btn-warning fs-17" href="/predict/ltc/lrg/1d" style="width: 100%; color: white; margin-bottom:10px;">LRG model "{{lrg}}"</a>
+
+                    <a class="btn btn-info fs-17" href="/predict/ltc/macd/1d" style="width: 100%; color: white;">MACD model "{{macd}}"</a>
+                </div>
+                <a style="color: #c80000;">{{ form.errors }}{{error}}</a>
+                </form>
+            </div>
+        </div>
+      </div>
+    
+</div>
+{% else %}
+    <h1 align="center"><a href="/login" style="font-size: 30px; margin-top: 30px;">You need to login first</a></h1>
+{% endif %}
+
+</body>
+<script>
+    $('input[type="radio"]').click(function(){
+        if($(this).attr("class")=="buy"){
+            $(".buy-amount").show('slow');
+            $(".sell-amount").hide('slow');
+        }
+        if($(this).attr("class")=="sell"){
+            $(".sell-amount").show('slow');
+            $(".buy-amount").hide('slow');
+
+        }        
+    });
+</script>
+</html>
+{% endblock %}

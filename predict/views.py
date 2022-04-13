@@ -94,12 +94,37 @@ def predict_30min():
     ada_30M_LRG_predict()
     ltc_30M_LRG_predict()
 
+
+def download_all():
+    print("-----------------------------Download All Data-----------------------------")
+    btc_30M_download()
+    eth_30M_download()
+    bnb_30M_download()
+    ada_30M_download()
+    ltc_30M_download()
+
+    btc_1H_download()
+    eth_1H_download()
+    bnb_1H_download()
+    ada_1H_download()
+    ltc_1H_download()
+
+    btc_1D_download()
+    eth_1D_download()
+    bnb_1D_download()
+    ada_1D_download()
+    ltc_1D_download()
+
 scheduler = BackgroundScheduler() 
 scheduler.add_job(predict_30min, 'cron', minute='10,35')
 scheduler.add_job(predict_1h, 'cron', hour='0-23', minute='5')
 scheduler.add_job(predict_1d, 'cron', hour='8', minute='15')
 scheduler.start()
 atexit.register(lambda: scheduler.shutdown())
+count = 1
+if count == 1:
+    download_all()
+    count+=1
 
 def predict(request):
     return render(request,'predict/predict.html' )
