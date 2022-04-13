@@ -30,6 +30,7 @@ admin.site.site_title = 'Adminsitration'
 urlpatterns = [
     path('', include('mysite.urls', namespace='mysite')),
     path('', include('predict.urls', namespace='predict')),
+    path('', include('demoAccount.urls', namespace='demoAccount')),
     path('tinymce/', include('tinymce.urls')),
     path('admin/', admin.site.urls, name='administrator'),
     path("register/", v.register, name="register"),

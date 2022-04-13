@@ -36,6 +36,7 @@ CRISPY_TEMPLATE_PACK="bootstrap4"
 INSTALLED_APPS = [
     'mysite',
     'predict',
+    'demoAccount',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
