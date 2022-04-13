@@ -22,7 +22,7 @@ from django.conf.urls import url
 from django.conf import settings
 from login import views as v
 from django.conf.urls.static import static
-
+from predict.views import download_all
 admin.site.site_header = 'CRYPTIANS'                 
 admin.site.index_title = 'Features area'
 admin.site.site_title = 'Adminsitration'
@@ -41,3 +41,5 @@ urlpatterns = [
     url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ]
+
+download_all()
