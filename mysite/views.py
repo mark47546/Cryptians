@@ -1,19 +1,22 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Comment, Tweet
 from .forms import CreatePostForm, UpdatePostForm, CreateCommentForm, UpdateCommentForm
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Q
-from twython import Twython
-from django.conf import settings 
-from tweepy.auth import OAuthHandler
+from django.core.paginator import Paginator
+from django.db.models import Count, Q
 from django.contrib.auth.decorators import login_required
 from .twitter import *
 from taggit.models import Tag
-from django.template.defaultfilters import slugify
 
 # Create your views here.
 def homepage(request):
-    return render(request,'home.html')
+    post = Post.objects.all().order_by('-id')[:4]
+    common_tags = Post.tags.most_common()[:4].annotate(posts_count=Count('post'))
+    context={'post':post,'common_tags':common_tags}
+    return render(request,'home.html',context)
+
+def realtime_graph(request):
+    return render(request,'realtime_graph.html')
+
 
 
 def allPost(request):

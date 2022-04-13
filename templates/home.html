@@ -1,137 +1,148 @@
 {% extends 'index.html' %}
 
 {% block content %}
+{% load static %}
 
-<DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Home | Cryptians</title>
-    
-        <style>
-            .chart {
-                height: 800px;
-            }
-        </style>
-    </head>
-    <body class="bg">
-        <div class="container-lg">
-     
-              <div class="table-wrapper">
-                <h1>REAL TIME GRAPH </h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home | Cryptians</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 
-                    <div class="card-body">
-                        <div class="row g-0" style="height: 80%;">
-                            <div class="col-md-8">
-                                <div class="tradingview-widget-container">
-                                    <div id="tradingview_74048"></div>
-                                    <div class="tradingview-widget-copyright"></div>
-                                    <script type="text/javascript" src="https://s3.tradingview.com/tv.js">
-                                        
-                                    </script>
-                                    <script type="text/javascript">
-                                        
-                                    new TradingView.widget(
-                                    {
-                                    "autosize": true,
-                                    "symbol": "BINANCE:BTCUSD",
-                                    "interval": "D",
-                                    "timezone": "Europe/Zurich",
-                                    "theme": "Dark",
-                                    "style": "1",
-                                    "locale": "en",
-                                    "toolbar_bg": "#f1f3f6",
-                                    "enable_publishing": false,
-                                    "hide_side_toolbar": false,
-                                    "allow_symbol_change": true,
-                                    "studies": [
-                                    "MACD@tv-basicstudies"
-                                    ],
-                                    "container_id": "tradingview_74048"
-                                }
-                                    );
-                                    </script>
-                                </div>
-                            </div>
-                            <div class="col-md-4 ps-md-3 pt-3 pt-md-0 d-flex flex-column" style="margin-top: 30px;">
-                                <div class="tradingview-widget-container">
-                                    <div class="tradingview-widget-container__widget"></div>
-                                    <div class="tradingview-widget-copyright"></div>
-                                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                                    {
-                                    "symbol":"BINANCE:BTCUSD",
-                                    "width": "100%",
-                                    "colorTheme": "dark",
-                                    "isTransparent": false,
-                                    "locale": "en"
-                                }
-                                    </script>
-                                </div>
+  body, html {
+    height: 100%;
+    line-height: 1.8;
+  }
 
-                                <div class="tradingview-widget-container">
-                                    <div class="tradingview-widget-container__widget"></div>
-                                    <div class="tradingview-widget-copyright"></div>
-                                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                                    {
-                                    "symbol":"BINANCE:ETHUSD",
-                                    "width": "100%",
-                                    "colorTheme": "dark",
-                                    "isTransparent": false,
-                                    "locale": "en"
-                                }
-                                    </script>
-                                </div>
+  /* Full height image header */
+  .bgimg-1 {
+    background-position: center;
+    background-size: cover;
+    background-image: url("{% static 'images/cryptians.png' %}");
+    min-height: 100%;
+  }
 
-                                <div class="tradingview-widget-container">
-                                    <div class="tradingview-widget-container__widget"></div>
-                                    <div class="tradingview-widget-copyright"></div>
-                                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                                    {
-                                    "symbol":"BINANCE:BNBUSD",
-                                    "width": "100%",
-                                    "colorTheme": "dark",
-                                    "isTransparent": false,
-                                    "locale": "en"
-                                }
-                                    </script>
-                                </div>
+  .w3-bar .w3-button {
+    padding: 16px;
+  }
+  </style>
+</head>
+<body>
 
-                                <div class="tradingview-widget-container">
-                                    <div class="tradingview-widget-container__widget"></div>
-                                    <div class="tradingview-widget-copyright"></div>
-                                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                                    {
-                                    "symbol":"BINANCE:ADAUSD",
-                                    "width": "100%",
-                                    "colorTheme": "dark",
-                                    "isTransparent": false,
-                                    "locale": "en"
-                                }
-                                    </script>
-                                </div>
 
-                                <div class="tradingview-widget-container">
-                                    <div class="tradingview-widget-container__widget"></div>
-                                    <div class="tradingview-widget-copyright"></div>
-                                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                                    {
-                                    "symbol":"BINANCE:LTCUSD",
-                                    "width": "100%",
-                                    "colorTheme": "dark",
-                                    "isTransparent": false,
-                                    "locale": "en"
-                                }
-                                    </script>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
+<!-- Header with full-height image -->
+<header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
+  <div class="w3-display-left w3-text-white" style="padding:48px">
+    <span class="w3-jumbo w3-hide-small">Smart buddy for crypto traders</span><br>
+    <span class="w3-xxlarge w3-hide-large w3-hide-medium">Smart buddy for cryptocurrency traders</span><br>
+    <span class="w3-large">Stop wasting valuable time and money with random trading.</span>
+    <p><a href="/demoaccount" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Open demo account and start today!</a></p>
+  </div> 
+</header>
 
-                
-                </div>
+<!-- About Section -->
+<div class="w3-container w3-light-grey" style="padding:128px 16px" id="about">
+  <h3 class="w3-center">ABOUT THIS PROJECT</h3>
+  <p class="w3-center w3-large">Key concepts of our project</p>
+  <div class="w3-row-padding w3-center" style="margin-top:64px">
+    <div class="w3-quarter">
+      <i class="fa fa-usd w3-margin-bottom w3-jumbo w3-center"></i>
+      <p class="w3-large">Prices</p>
+      <p>Real time price of Bitcoin and others altcoin in market with tradingview.</p>
+    </div>
+    <div class="w3-quarter">
+      <i class="fa fa-info-circle w3-margin-bottom w3-jumbo"></i>
+      <p class="w3-large">Informations</p>
+      <p>Using Twitter api for new information and user can post and comment some personal ideas.</p>
+    </div>
+    <div class="w3-quarter">
+      <i class="fa fa-lightbulb-o w3-margin-bottom w3-jumbo"></i>
+      <p class="w3-large">Ideas and Demo</p>
+      <p>The knowledge about graph’s patterns and Try to trade with demo account.</p>
+    </div>
+    <div class="w3-quarter">
+      <i class="fa fa-area-chart w3-margin-bottom w3-jumbo"></i>
+      <p class="w3-large">Graphs</p>
+      <p>The predict of price graph compare with current graph.</p>
+    </div>
+  </div>
+</div>
 
-    </body>
+<!-- Promo Section - "We know design" -->
+<div class="w3-container" style="padding:128px 16px">
+  <div class="w3-row-padding">
+    <div class="w3-col m6">
+      <img class="w3-image w3-round-large" src="{% static 'images/realtime.png' %}" alt="Buildings" width="700" height="394">
+    </div>
+    <div class="w3-col m6">
+      <h2>Realtime Graph Functions</h3><br>
+        <p class="fs-18">See the realtime price of cryptocurrency and add some indicator with Tradingview api.<br>Select the coin, timeframe and symbol that you want to show.</p>
+        <p><a href="/realtime_graph/" class="w3-button w3-black" style="margin-top: 20%;"><i class="fa fa-th"> </i> View The Realtime Graph</a></p>
+    </div>
+  </div>
+</div>
+<!-- Promo Section - "We know design" -->
+<div class="w3-container w3-light-grey" style="padding:128px 16px">
+  <div class="w3-row-padding">
+    <div class="w3-col m6">
+      <h2>Prediction Functions</h3><br>
+      <p class="fs-18">See the average cryptocurrency price predictions by using machine learning algorithms.<br>Select the coin, timeframe and the model that you want to use.</p>
+      <p><a href="/predict/" class="w3-button w3-black" style="margin-top: 20%;"><i class="fa fa-th"> </i> View Our Predictions</a></p>
+    </div>
+    <div class="w3-col m6">
+      <img class="w3-image w3-round-large" src="{% static 'images/predict.png' %}" alt="Buildings" width="700" height="394">
+    </div>
+  </div>
+</div>
+
+
+<!-- Team Section -->
+<div class="w3-container" style="padding:128px 16px" id="team">
+  <h3 class="w3-center">THE NEW POST</h3>
+  <p class="w3-center w3-large">The last 4 posts on our website</p>
+  <div class="w3-row-padding" style="margin-top:64px">
+    {% for post in post %}
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-card">
+        <div align='center'>
+          {% if not post.coverImage %}
+              <img src="{% static 'images/Upload.png' %}" style="max-width:100%; height: 250px;" >
+          {% else %}
+              <img src="{{ post.coverImage.url }}" style="max-width:100%; height: 250px;">
+          {% endif %}
+        </div>
+        <div class="w3-container" style="padding:10px 10px">
+          <h3>{{ post.title }}</h3>
+          <p class="w3-opacity">by {{ post.posted_by }}</p>
+          <p>{{ post.body|safe|striptags|truncatechars:150 }}</p>
+          <p style="margin-top:20px"><a class="w3-button w3-light-grey w3-block" href="/allPost/{{post.id}}"><i class="fa fa-book"></i> Read more . . .</a></p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Promo Section "Statistics" -->
+<div class="w3-container w3-row w3-center w3-dark-grey w3-padding-64">
+  {% for tags in common_tags %}
+  <div class="w3-quarter">
+    <span class="w3-xxlarge">{{tags.posts_count}}+</span>
+    <br><a class="fs-15" href="/tag/{{tags}}" style="color: white;">{{tags}}</a>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-64">
+  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+</footer>
+
+</body>
 </html>
+
+
 {% endblock %}
