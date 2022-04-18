@@ -6,6 +6,17 @@ from django.db.models import Count, Q
 from django.contrib.auth.decorators import login_required
 from .twitter import *
 from taggit.models import Tag
+import atexit
+from apscheduler.schedulers.background import BackgroundScheduler
+
+def update_twitter():
+    print("-----------------------------Update twitter-----------------------------")
+    save_to_db
+
+scheduler = BackgroundScheduler() 
+scheduler.add_job(update_twitter, 'cron', minute='15')
+scheduler.start()
+atexit.register(lambda: scheduler.shutdown())
 
 # Create your views here.
 def homepage(request):
