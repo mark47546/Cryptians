@@ -48,8 +48,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'login',
     'widget_tweaks',
-    'tinymce',
-    'taggit'
+    'taggit',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
