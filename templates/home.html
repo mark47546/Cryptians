@@ -109,7 +109,7 @@
       <div class="w3-card">
         <div align='center'>
           {% if not post.coverImage %}
-              <img src="{% static 'images/Upload.png' %}" style="max-width:100%; height: 250px;" >
+              <img src="{% static 'images/defult-pic.png' %}" style="max-width:100%; height: 250px;" >
           {% else %}
               <img src="{{ post.coverImage.url }}" style="max-width:100%; height: 250px;">
           {% endif %}

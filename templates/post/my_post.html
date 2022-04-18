@@ -43,7 +43,7 @@
                             <div class="col-md-5">
                                 <div class="ratio ratio-16x9" align='center'>
                                     {% if not post.coverImage %}
-                                        <img src="{% static 'images/Upload.png' %}" class="rounded" style="max-width:100%; max-height: 300px;">
+                                        <img src="{% static 'images/defult-pic.png' %}" class="rounded" style="max-width:100%; max-height: 300px;">
                                     {% else %}
                                         <img src="{{ post.coverImage.url }}" class="rounded" style="max-width:100%; max-height: 300px;">
                                     {% endif %}
