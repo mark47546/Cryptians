@@ -24,6 +24,6 @@ def save_to_db():
     for tweets in original_tweets:
         if any(word in tweets.text for word in list_tag):
             if not Tweet.objects.filter(tweet_id=tweets.id):
-                new_tweet = Tweet.objects.create(tweet_id = tweets.id, tweets_name = tweets.user.name, tweet_text = tweets.text, published_date = tweets.created_at)
+                new_tweet = Tweet.objects.create(tweet_id = tweets.id, tweet_name = tweets.user.name, tweet_text = tweets.text, published_date = tweets.created_at)
                 new_tweet.save()
 
