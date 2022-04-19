@@ -33,7 +33,7 @@
 <body>
 
 
-<!-- Header with full-height image -->
+
 <header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
   <div class="w3-display-left w3-text-white" style="padding:48px">
     <span class="w3-jumbo w3-hide-small">Smart buddy for crypto traders</span><br>
@@ -43,7 +43,7 @@
   </div> 
 </header>
 
-<!-- About Section -->
+
 <div class="w3-container w3-light-grey" style="padding:128px 16px" id="about">
   <h3 class="w3-center">ABOUT THIS PROJECT</h3>
   <p class="w3-center w3-large">Key concepts of our project</p>
@@ -71,7 +71,7 @@
   </div>
 </div>
 
-<!-- Promo Section - "We know design" -->
+
 <div class="w3-container" style="padding:128px 16px">
   <div class="w3-row-padding">
     <div class="w3-col m6">
@@ -84,7 +84,7 @@
     </div>
   </div>
 </div>
-<!-- Promo Section - "We know design" -->
+
 <div class="w3-container w3-light-grey" style="padding:128px 16px">
   <div class="w3-row-padding">
     <div class="w3-col m6">
@@ -98,8 +98,6 @@
   </div>
 </div>
 
-
-<!-- Team Section -->
 <div class="w3-container" style="padding:128px 16px" id="team">
   <h3 class="w3-center">THE NEW POST</h3>
   <p class="w3-center w3-large">The last 4 posts on our website</p>
@@ -115,9 +113,9 @@
           {% endif %}
         </div>
         <div class="w3-container" style="padding:10px 10px">
-          <h3>{{ post.title }}</h3>
+          <h3>{{ post.title|safe|striptags|truncatechars:30 }}</h3>
           <p class="w3-opacity">by {{ post.posted_by }}</p>
-          <p>{{ post.body|safe|striptags|truncatechars:150 }}</p>
+          <p>{{ post.body|safe|striptags|truncatechars:50 }}</p>
           <p style="margin-top:20px"><a class="w3-button w3-light-grey w3-block" href="/allPost/{{post.id}}"><i class="fa fa-book"></i> Read more . . .</a></p>
         </div>
       </div>
@@ -126,7 +124,6 @@
   </div>
 </div>
 
-<!-- Promo Section "Statistics" -->
 <div class="w3-container w3-row w3-center w3-dark-grey w3-padding-64">
   {% for tags in common_tags %}
   <div class="w3-quarter">
@@ -136,7 +133,6 @@
   {% endfor %}
 </div>
 
-<!-- Footer -->
 <footer class="w3-center w3-black w3-padding-64">
   <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
 </footer>
