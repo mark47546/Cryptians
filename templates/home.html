@@ -115,9 +115,9 @@
           {% endif %}
         </div>
         <div class="w3-container" style="padding:10px 10px">
-          <h3>{{ post.title }}</h3>
+          <h3>{{ post.title|safe|striptags|truncatechars:30 }}</h3>
           <p class="w3-opacity">by {{ post.posted_by }}</p>
-          <p>{{ post.body|safe|striptags|truncatechars:150 }}</p>
+          <p>{{ post.body|safe|striptags|truncatechars:50 }}</p>
           <p style="margin-top:20px"><a class="w3-button w3-light-grey w3-block" href="/allPost/{{post.id}}"><i class="fa fa-book"></i> Read more . . .</a></p>
         </div>
       </div>
