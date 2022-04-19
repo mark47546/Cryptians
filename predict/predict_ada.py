@@ -27,7 +27,6 @@ def ada_1D_download():
 
 def ada_30M_download():
     df = yf.download(tickers='ada-USD', period = '21600M', interval = '30M')
-    print(df)
     last_data = df[len(df)-1:]
     update_last_data = ada_30M.objects.filter(Datetime=last_data.reset_index()['Datetime'][0])
     update_last_data.update( Open=last_data['Open'].values, High=last_data['High'].values, Low=last_data['Low'].values, Close=last_data['Close'].values, Volume=last_data['Volume'].values)
@@ -42,19 +41,15 @@ def ada_30M_download():
 def ada_1H_download():
     df = yf.download(tickers='ada-USD', period = '21900M', interval = '60M')
     last_data = df[len(df)-2:len(df)-1]
-    print(last_data)
     update_last_data = ada_1H.objects.filter(Datetime=last_data.reset_index()['Datetime'][0])
-    print(update_last_data)
     update_last_data.update( Open=last_data['Open'].values, High=last_data['High'].values, Low=last_data['Low'].values, Close=last_data['Close'].values, Volume=last_data['Volume'].values)
     #-- save value to db ------------------------------------------------------------------------------------------------------
     for i in range(len(df)-2):
         new_df = df[i+1:i+2]
         Datetime = (new_df.reset_index()['Datetime'][0])
         if not ada_1H.objects.filter(Datetime=Datetime):
-            ada_1H.objects.create(Datetime = Datetime, Open=new_df['Open'].values, High=new_df['High'].values, Low=new_df['Low'].values, Close=new_df['Close'].values, Volume=new_df['Volume'].values)
-            
+            ada_1H.objects.create(Datetime = Datetime, Open=new_df['Open'].values, High=new_df['High'].values, Low=new_df['Low'].values, Close=new_df['Close'].values, Volume=new_df['Volume'].values)       
     #-- ------------------------------------------------------------------------------------------------------
-    print(len(df)-1)
 
 
 def ada_30M_LSTM_predict():
@@ -113,7 +108,6 @@ def ada_30M_LSTM_predict():
 
 def ada_1H_LSTM_predict():
     df = yf.download(tickers='ADA-USD', period = '33200M', interval = '60M')
-    print(df)
     df = df[:-1]
     data = df.filter(['Close'])
     #dataframs to a numpy array
