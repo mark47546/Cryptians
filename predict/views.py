@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import btc_30M, btc_1H, btc_1D, eth_30M, eth_1H, eth_1D, bnb_30M, bnb_1H, bnb_1D, ada_30M, ada_1H, ada_1D, ltc_30M, ltc_1H, ltc_1D
 from django.db.models import Q
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 import yfinance as yf
 import plotly.graph_objects as go
@@ -122,6 +123,7 @@ scheduler.add_job(predict_1d, 'cron', hour='8', minute='15')
 scheduler.start()
 atexit.register(lambda: scheduler.shutdown())
 
+@login_required
 def predict(request):
     return render(request,'predict/predict.html' )
 
@@ -129,6 +131,7 @@ def predict(request):
 
 #----LSTM----------------------------------------------------------------------------------------------
 # BTC
+@login_required
 def lstm_btc_30M(request):
     data = yf.download(tickers='BTC-USD', period = '2880M', interval = '30M')
     data = data[:-1]
@@ -162,7 +165,7 @@ def lstm_btc_30M(request):
 
     context={'lstm_btc_30M': lstm_btc_30M}
     return render(request,'predict/lstm/btc/btc-30m.html',context )
-
+@login_required
 def lstm_btc_1H(request):
     data = yf.download(tickers='BTC-USD', period = '7200M', interval = '60M')
     data = data[:-2]
@@ -193,7 +196,7 @@ def lstm_btc_1H(request):
 
     context={'lstm_btc_1H': lstm_btc_1H}
     return render(request,'predict/lstm/btc/btc-1h.html',context )
-
+@login_required
 def lstm_btc_1D(request):
     data = yf.download(tickers='BTC-USD', period = '96D', interval = '1D')
     data = data[:-1]
@@ -225,6 +228,7 @@ def lstm_btc_1D(request):
     return render(request,'predict/lstm/btc/btc-1d.html',context )
 
 # ETH
+@login_required
 def lstm_eth_30M(request):
     data = yf.download(tickers='ETH-USD', period = '2880M', interval = '30M')
     data = data[:-1]
@@ -258,7 +262,7 @@ def lstm_eth_30M(request):
 
     context={'lstm_eth_30M': lstm_eth_30M}
     return render(request,'predict/lstm/eth/eth-30m.html',context )
-
+@login_required
 def lstm_eth_1H(request):
     data = yf.download(tickers='ETH-USD', period = '7200M', interval = '60M')
     data = data[:-2]
@@ -289,7 +293,7 @@ def lstm_eth_1H(request):
 
     context={'lstm_eth_1H': lstm_eth_1H}
     return render(request,'predict/lstm/eth/eth-1h.html',context )
-
+@login_required
 def lstm_eth_1D(request):
     data = yf.download(tickers='ETH-USD', period = '96D', interval = '1D')
     data = data[:-1]
@@ -322,6 +326,7 @@ def lstm_eth_1D(request):
     return render(request,'predict/lstm/eth/eth-1d.html',context )
 
 # BNB
+@login_required
 def lstm_bnb_30M(request):
     data = yf.download(tickers='BNB-USD', period = '2880M', interval = '30M')
     data = data[:-1]
@@ -355,7 +360,7 @@ def lstm_bnb_30M(request):
 
     context={'lstm_bnb_30M': lstm_bnb_30M}
     return render(request,'predict/lstm/bnb/bnb-30m.html',context )
-
+@login_required
 def lstm_bnb_1H(request):
     data = yf.download(tickers='BNB-USD', period = '7200M', interval = '60M')
     data = data[:-2]
@@ -386,7 +391,7 @@ def lstm_bnb_1H(request):
 
     context={'lstm_bnb_1H': lstm_bnb_1H}
     return render(request,'predict/lstm/bnb/bnb-1h.html',context )
-
+@login_required
 def lstm_bnb_1D(request):
     data = yf.download(tickers='BNB-USD', period = '96D', interval = '1D')
     data = data[:-1]
@@ -418,6 +423,7 @@ def lstm_bnb_1D(request):
     return render(request,'predict/lstm/bnb/bnb-1d.html',context )
 
 # ADA
+@login_required
 def lstm_ada_30M(request):
     data = yf.download(tickers='ADA-USD', period = '2880M', interval = '30M')
     data = data[:-1]
@@ -451,7 +457,7 @@ def lstm_ada_30M(request):
 
     context={'lstm_ada_30M': lstm_ada_30M}
     return render(request,'predict/lstm/ada/ada-30m.html',context )
-
+@login_required
 def lstm_ada_1H(request):
     data = yf.download(tickers='ADA-USD', period = '7200M', interval = '60M')
     data = data[:-2]
@@ -482,7 +488,7 @@ def lstm_ada_1H(request):
 
     context={'lstm_ada_1H': lstm_ada_1H}
     return render(request,'predict/lstm/ada/ada-1h.html',context )
-
+@login_required
 def lstm_ada_1D(request):
     data = yf.download(tickers='ADA-USD', period = '96D', interval = '1D')
     data = data[:-1]
@@ -514,6 +520,7 @@ def lstm_ada_1D(request):
     return render(request,'predict/lstm/ada/ada-1d.html',context )
 
 # LTC
+@login_required
 def lstm_ltc_30M(request):
     data = yf.download(tickers='LTC-USD', period = '2880M', interval = '30M')
     data = data[:-1]
@@ -547,7 +554,7 @@ def lstm_ltc_30M(request):
 
     context={'lstm_ltc_30M': lstm_ltc_30M}
     return render(request,'predict/lstm/ltc/ltc-30m.html',context )
-
+@login_required
 def lstm_ltc_1H(request):
     data = yf.download(tickers='LTC-USD', period = '7200M', interval = '60M')
     data = data[:-2]
@@ -578,7 +585,7 @@ def lstm_ltc_1H(request):
 
     context={'lstm_ltc_1H': lstm_ltc_1H}
     return render(request,'predict/lstm/ltc/ltc-1h.html',context )
-
+@login_required
 def lstm_ltc_1D(request):
     data = yf.download(tickers='LTC-USD', period = '96D', interval = '1D')
     data = data[:-1]
@@ -612,6 +619,7 @@ def lstm_ltc_1D(request):
 
 #----LRG----------------------------------------------------------------------------------------------
 # BTC
+@login_required
 def lrg_btc_30M(request):
     data = yf.download(tickers='BTC-USD', period = '2880M', interval = '30M')
     data = data[:-1]
@@ -644,7 +652,7 @@ def lrg_btc_30M(request):
 
     context={'lrg_btc_30M': lrg_btc_30M}
     return render(request,'predict/lrg/btc/btc-30m.html',context )
-
+@login_required
 def lrg_btc_1H(request):
     data = yf.download(tickers='BTC-USD', period = '7200M', interval = '60M')
     data = data[:-2]
@@ -675,7 +683,7 @@ def lrg_btc_1H(request):
 
     context={'lrg_btc_1H': lrg_btc_1H}
     return render(request,'predict/lrg/btc/btc-1h.html',context )
-
+@login_required
 def lrg_btc_1D(request):
     data = yf.download(tickers='BTC-USD', period = '96D', interval = '1D')
     data = data[:-1]
@@ -708,6 +716,7 @@ def lrg_btc_1D(request):
     return render(request,'predict/lrg/btc/btc-1d.html',context )
 
 # ETH
+@login_required
 def lrg_eth_30M(request):
     data = yf.download(tickers='ETH-USD', period = '2880M', interval = '30M')
     data = data[:-1]
@@ -740,7 +749,7 @@ def lrg_eth_30M(request):
 
     context={'lrg_eth_30M': lrg_eth_30M}
     return render(request,'predict/lrg/eth/eth-30m.html',context )
-
+@login_required
 def lrg_eth_1H(request):
     data = yf.download(tickers='ETH-USD', period = '7200M', interval = '60M')
     data = data[:-2]
@@ -771,7 +780,7 @@ def lrg_eth_1H(request):
 
     context={'lrg_eth_1H': lrg_eth_1H}
     return render(request,'predict/lrg/eth/eth-1h.html',context )
-
+@login_required
 def lrg_eth_1D(request):
     data = yf.download(tickers='ETH-USD', period = '96D', interval = '1D')
     data = data[:-1]
@@ -804,6 +813,7 @@ def lrg_eth_1D(request):
     return render(request,'predict/lrg/eth/eth-1d.html',context )
 
 # BNB
+@login_required
 def lrg_bnb_30M(request):
     data = yf.download(tickers='BNB-USD', period = '2880M', interval = '30M')
     data = data[:-1]
@@ -836,7 +846,7 @@ def lrg_bnb_30M(request):
 
     context={'lrg_bnb_30M': lrg_bnb_30M}
     return render(request,'predict/lrg/bnb/bnb-30m.html',context )
-
+@login_required
 def lrg_bnb_1H(request):
     data = yf.download(tickers='BNB-USD', period = '7200M', interval = '60M')
     data = data[:-2]
@@ -867,7 +877,7 @@ def lrg_bnb_1H(request):
 
     context={'lrg_bnb_1H': lrg_bnb_1H}
     return render(request,'predict/lrg/bnb/bnb-1h.html',context )
-
+@login_required
 def lrg_bnb_1D(request):
     data = yf.download(tickers='BNB-USD', period = '96D', interval = '1D')
     data = data[:-1]
@@ -900,6 +910,7 @@ def lrg_bnb_1D(request):
     return render(request,'predict/lrg/bnb/bnb-1d.html',context )
 
 # ADA
+@login_required
 def lrg_ada_30M(request):
     data = yf.download(tickers='ADA-USD', period = '2880M', interval = '30M')
     data = data[:-1]
@@ -932,7 +943,7 @@ def lrg_ada_30M(request):
 
     context={'lrg_ada_30M': lrg_ada_30M}
     return render(request,'predict/lrg/ada/ada-30m.html',context )
-
+@login_required
 def lrg_ada_1H(request):
     data = yf.download(tickers='ADA-USD', period = '7200M', interval = '60M')
     data = data[:-2]
@@ -963,7 +974,7 @@ def lrg_ada_1H(request):
 
     context={'lrg_ada_1H': lrg_ada_1H}
     return render(request,'predict/lrg/ada/ada-1h.html',context )
-
+@login_required
 def lrg_ada_1D(request):
     data = yf.download(tickers='ADA-USD', period = '96D', interval = '1D')
     data = data[:-1]
@@ -997,6 +1008,7 @@ def lrg_ada_1D(request):
 
 
 # LTC
+@login_required
 def lrg_ltc_30M(request):
     data = yf.download(tickers='LTC-USD', period = '2880M', interval = '30M')
     data = data[:-1]
@@ -1029,7 +1041,7 @@ def lrg_ltc_30M(request):
 
     context={'lrg_ltc_30M': lrg_ltc_30M}
     return render(request,'predict/lrg/ltc/ltc-30m.html',context )
-
+@login_required
 def lrg_ltc_1H(request):
     data = yf.download(tickers='LTC-USD', period = '7200M', interval = '60M')
     data = data[:-2]
@@ -1060,7 +1072,7 @@ def lrg_ltc_1H(request):
 
     context={'lrg_ltc_1H': lrg_ltc_1H}
     return render(request,'predict/lrg/ltc/ltc-1h.html',context )
-
+@login_required
 def lrg_ltc_1D(request):
     data = yf.download(tickers='LTC-USD', period = '96D', interval = '1D')
     data = data[:-1]
@@ -1095,6 +1107,7 @@ def lrg_ltc_1D(request):
 
 #----MACD----------------------------------------------------------------------------------------------
 # BTC
+@login_required
 def macd_btc_30M(request):
     data = yf.download(tickers='BTC-USD', period = '28800M', interval = '30M')
     data = data[:-1]
@@ -1125,7 +1138,7 @@ def macd_btc_30M(request):
     find_last_predict = btc_30M.objects.last()
     context={'macd_btc_30M': macd_btc_30M, 'last_predict':find_last_predict}
     return render(request,'predict/macd/btc/btc-30m.html',context )
-
+@login_required
 def macd_btc_1H(request):
     data = yf.download(tickers='BTC-USD', period = '72000M', interval = '60M')
     data = data[:-2]
@@ -1156,7 +1169,7 @@ def macd_btc_1H(request):
     find_last_predict = btc_1H.objects.last()
     context={'macd_btc_1H': macd_btc_1H, 'last_predict':find_last_predict}
     return render(request,'predict/macd/btc/btc-1h.html',context )
-
+@login_required
 def macd_btc_1D(request):
     data = yf.download(tickers='BTC-USD', period = '960D', interval = '1D')
     data = data[:-1]
@@ -1189,6 +1202,7 @@ def macd_btc_1D(request):
     return render(request,'predict/macd/btc/btc-1d.html',context )
 
 # ETH
+@login_required
 def macd_eth_30M(request):
     data = yf.download(tickers='ETH-USD', period = '28800M', interval = '30M')
     data = data[:-1]
@@ -1219,7 +1233,7 @@ def macd_eth_30M(request):
     find_last_predict = eth_30M.objects.last()
     context={'macd_eth_30M': macd_eth_30M, 'last_predict':find_last_predict}
     return render(request,'predict/macd/eth/eth-30m.html',context )
-
+@login_required
 def macd_eth_1H(request):
     data = yf.download(tickers='ETH-USD', period = '72000M', interval = '60M')
     data = data[:-2]
@@ -1250,7 +1264,7 @@ def macd_eth_1H(request):
     find_last_predict = eth_1H.objects.last()
     context={'macd_eth_1H': macd_eth_1H, 'last_predict':find_last_predict}
     return render(request,'predict/macd/eth/eth-1h.html',context )
-
+@login_required
 def macd_eth_1D(request):
     data = yf.download(tickers='ETH-USD', period = '960D', interval = '1D')
     data = data[:-1]
@@ -1283,6 +1297,7 @@ def macd_eth_1D(request):
     return render(request,'predict/macd/eth/eth-1d.html',context )
 
 # BNB
+@login_required
 def macd_bnb_30M(request):
     data = yf.download(tickers='BNB-USD', period = '28800M', interval = '30M')
     data = data[:-1]
@@ -1313,7 +1328,7 @@ def macd_bnb_30M(request):
     find_last_predict = bnb_30M.objects.last()
     context={'macd_bnb_30M': macd_bnb_30M, 'last_predict':find_last_predict}
     return render(request,'predict/macd/bnb/bnb-30m.html',context )
-
+@login_required
 def macd_bnb_1H(request):
     data = yf.download(tickers='BNB-USD', period = '72000M', interval = '60M')
     data = data[:-2]
@@ -1344,7 +1359,7 @@ def macd_bnb_1H(request):
     find_last_predict = bnb_1H.objects.last()
     context={'macd_bnb_1H': macd_bnb_1H, 'last_predict':find_last_predict}
     return render(request,'predict/macd/bnb/bnb-1h.html',context )
-
+@login_required
 def macd_bnb_1D(request):
     data = yf.download(tickers='BNB-USD', period = '960D', interval = '1D')
     data = data[:-1]
@@ -1377,6 +1392,7 @@ def macd_bnb_1D(request):
     return render(request,'predict/macd/bnb/bnb-1d.html',context )
 
 # ADA
+@login_required
 def macd_ada_30M(request):
     data = yf.download(tickers='ADA-USD', period = '28800M', interval = '30M')
     data = data[:-1]
@@ -1407,7 +1423,7 @@ def macd_ada_30M(request):
     find_last_predict = ada_30M.objects.last()
     context={'macd_ada_30M': macd_ada_30M, 'last_predict':find_last_predict}
     return render(request,'predict/macd/ada/ada-30m.html',context )
-
+@login_required
 def macd_ada_1H(request):
     data = yf.download(tickers='ADA-USD', period = '72000M', interval = '60M')
     data = data[:-2]
@@ -1438,7 +1454,7 @@ def macd_ada_1H(request):
     find_last_predict = ada_1H.objects.last()
     context={'macd_ada_1H': macd_ada_1H, 'last_predict':find_last_predict}
     return render(request,'predict/macd/ada/ada-1h.html',context )
-
+@login_required
 def macd_ada_1D(request):
     data = yf.download(tickers='ADA-USD', period = '960D', interval = '1D')
     data = data[:-1]
@@ -1472,6 +1488,7 @@ def macd_ada_1D(request):
 
 
 # LTC
+@login_required
 def macd_ltc_30M(request):
     data = yf.download(tickers='LTC-USD', period = '28800M', interval = '30M')
     data = data[:-1]
@@ -1502,7 +1519,7 @@ def macd_ltc_30M(request):
     find_last_predict = ltc_30M.objects.last()
     context={'macd_ltc_30M': macd_ltc_30M, 'last_predict':find_last_predict}
     return render(request,'predict/macd/ltc/ltc-30m.html',context )
-
+@login_required
 def macd_ltc_1H(request):
     data = yf.download(tickers='LTC-USD', period = '72000M', interval = '60M')
     data = data[:-2]
@@ -1533,7 +1550,7 @@ def macd_ltc_1H(request):
     find_last_predict = ltc_1H.objects.last()
     context={'macd_ltc_1H': macd_ltc_1H, 'last_predict':find_last_predict}
     return render(request,'predict/macd/ltc/ltc-1h.html',context )
-
+@login_required
 def macd_ltc_1D(request):
     data = yf.download(tickers='LTC-USD', period = '960D', interval = '1D')
     data = data[:-1]

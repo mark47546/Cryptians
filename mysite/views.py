@@ -52,6 +52,7 @@ def tagged(request, slug):
 
     return render(request, 'post/all_post.html', {'post':page_obj,'common_tags':common_tags})
 
+@login_required
 def createPost(request):
     posted_by = request.user
     common_tags = Post.tags.most_common()[:4]
@@ -77,7 +78,7 @@ def viewPost(request,post_id):
     
     return render(request, 'post/view_post.html',{'post':get_post_id, 'form':form, 'comments':comments})
 
-
+@login_required
 def myPost(request):
     #Query Data from model
     search_post = request.GET.get('search')
@@ -91,7 +92,7 @@ def myPost(request):
     count_my_post = len(count)
     return render(request,'post/my_post.html',{'post':data, 'count_my_post':count_my_post})
 
-
+@login_required
 def editPost(request,post_id):
     posted_by = request.user
     get_post_id = Post.objects.get(id=post_id)
@@ -102,6 +103,7 @@ def editPost(request,post_id):
         pass
     return render(request,'post/edit_post.html',{'form':form,'post':get_post_id, 'posted_by':posted_by, 'common_tags':common_tags})
 
+@login_required
 def updatePost(request,post_id):
     get_post_id = Post.objects.get(id=post_id)
     posted_by = request.user
@@ -112,6 +114,7 @@ def updatePost(request,post_id):
     else:
         return render(request,'post/edit_post.html',{'form':form,'post':get_post_id, 'posted_by':posted_by})
 
+@login_required
 def deletePost(request,post_id):
     posted_by = request.user
     get_post_id = Post.objects.get(id=post_id)
@@ -121,6 +124,7 @@ def deletePost(request,post_id):
         pass
     return redirect("/myPost")
 
+@login_required
 def deleteComment(request,comment_id,post_id):
     posted_by = request.user
     get_comment_id = Comment.objects.get(id=comment_id)
