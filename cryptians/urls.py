@@ -22,12 +22,14 @@ from django.conf.urls import url
 from django.conf import settings
 from login import views as v
 from django.conf.urls.static import static
+from rest_framework.authtoken import  views
 from predict.views import download_all
 admin.site.site_header = 'CRYPTIANS'                 
 admin.site.index_title = 'Features area'
 admin.site.site_title = 'Adminsitration'
 
 urlpatterns = [
+    path('api-token-auth/', views.obtain_auth_token, name='api-token-auth'),
     path('', include('mysite.urls', namespace='mysite')),
     path('', include('predict.urls', namespace='predict')),
     path('', include('demoAccount.urls', namespace='demoAccount')),
@@ -41,4 +43,5 @@ urlpatterns = [
     url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ]
 
-download_all()
+
+# http http://localhost:8000/api-token-auth/ -H 'Authorization: Token 9db0943a28454e4294cd5483e7bc8f545338b96a'
