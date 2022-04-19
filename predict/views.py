@@ -165,7 +165,6 @@ def lstm_btc_30M(request):
 
 def lstm_btc_1H(request):
     data = yf.download(tickers='BTC-USD', period = '7200M', interval = '60M')
-    print(data)
     data = data[:-2]
     fig = go.Figure(data=[go.Candlestick(x=data.reset_index()['Datetime'],
                 open=data['Open'],
@@ -262,7 +261,6 @@ def lstm_eth_30M(request):
 
 def lstm_eth_1H(request):
     data = yf.download(tickers='ETH-USD', period = '7200M', interval = '60M')
-    print(data)
     data = data[:-2]
     fig = go.Figure(data=[go.Candlestick(x=data.reset_index()['Datetime'],
                 open=data['Open'],
@@ -360,7 +358,6 @@ def lstm_bnb_30M(request):
 
 def lstm_bnb_1H(request):
     data = yf.download(tickers='BNB-USD', period = '7200M', interval = '60M')
-    print(data)
     data = data[:-2]
     fig = go.Figure(data=[go.Candlestick(x=data.reset_index()['Datetime'],
                 open=data['Open'],
@@ -457,7 +454,6 @@ def lstm_ada_30M(request):
 
 def lstm_ada_1H(request):
     data = yf.download(tickers='ADA-USD', period = '7200M', interval = '60M')
-    print(data)
     data = data[:-2]
     fig = go.Figure(data=[go.Candlestick(x=data.reset_index()['Datetime'],
                 open=data['Open'],
@@ -554,7 +550,6 @@ def lstm_ltc_30M(request):
 
 def lstm_ltc_1H(request):
     data = yf.download(tickers='LTC-USD', period = '7200M', interval = '60M')
-    print(data)
     data = data[:-2]
     fig = go.Figure(data=[go.Candlestick(x=data.reset_index()['Datetime'],
                 open=data['Open'],
@@ -652,7 +647,6 @@ def lrg_btc_30M(request):
 
 def lrg_btc_1H(request):
     data = yf.download(tickers='BTC-USD', period = '7200M', interval = '60M')
-    print(data)
     data = data[:-2]
     fig = go.Figure(data=[go.Candlestick(x=data.reset_index()['Datetime'],
                 open=data['Open'],
@@ -749,7 +743,6 @@ def lrg_eth_30M(request):
 
 def lrg_eth_1H(request):
     data = yf.download(tickers='ETH-USD', period = '7200M', interval = '60M')
-    print(data)
     data = data[:-2]
     fig = go.Figure(data=[go.Candlestick(x=data.reset_index()['Datetime'],
                 open=data['Open'],
@@ -846,7 +839,6 @@ def lrg_bnb_30M(request):
 
 def lrg_bnb_1H(request):
     data = yf.download(tickers='BNB-USD', period = '7200M', interval = '60M')
-    print(data)
     data = data[:-2]
     fig = go.Figure(data=[go.Candlestick(x=data.reset_index()['Datetime'],
                 open=data['Open'],
@@ -943,7 +935,6 @@ def lrg_ada_30M(request):
 
 def lrg_ada_1H(request):
     data = yf.download(tickers='ADA-USD', period = '7200M', interval = '60M')
-    print(data)
     data = data[:-2]
     fig = go.Figure(data=[go.Candlestick(x=data.reset_index()['Datetime'],
                 open=data['Open'],
@@ -1041,7 +1032,6 @@ def lrg_ltc_30M(request):
 
 def lrg_ltc_1H(request):
     data = yf.download(tickers='LTC-USD', period = '7200M', interval = '60M')
-    print(data)
     data = data[:-2]
     fig = go.Figure(data=[go.Candlestick(x=data.reset_index()['Datetime'],
                 open=data['Open'],
