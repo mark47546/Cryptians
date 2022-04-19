@@ -10,6 +10,9 @@ class demoAccount(models.Model):
     ada = models.FloatField(default=0)
     ltc = models.FloatField(default=0)
 
+    def __str__(self):
+        return self.user.username + "-" + str(self.user.id)
+
 option_choices = (
         ('buy', 'buy'),
         ('sell', 'sell')
@@ -30,3 +33,9 @@ class Trade(models.Model):
     price = models.FloatField(null=True, blank=True)
     sell_amount = models.FloatField(null=True,default=0)
     buy_amount = models.IntegerField(null=True,default=0)
+
+    class Meta:
+        ordering = ['-trade_at']
+
+    def __str__(self):
+        return self.account.user.username + "-" + str(self.account.user.id) + " | " + self.option + " - " + self.coin
