@@ -43,7 +43,7 @@ def allPost(request):
     return render(request,'post/all_post.html',{'post':page_obj,'common_tags':common_tags})
 
 def tagged(request, slug):
-    tag = get_object_or_404(Tag, slug=slug)
+    tag = get_object_or_404(Tag, name=slug)
     common_tags = Post.tags.most_common()[:4]
     data = Post.objects.filter(tags=tag)
     paginator = Paginator(data, 5)
