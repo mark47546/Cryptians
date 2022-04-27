@@ -1,16 +1,10 @@
 import tweepy
 from tweepy.auth import OAuthHandler
 from .models import Tweet
+from django.conf import settings
 
-twitter_keys = {
-        'consumer_key':        'W2mDDh5w4BHZblR9tGiTOiHG0',
-        'consumer_secret':     'F9IPLi9VBWNTjDz2X6HVgQWVE4zQIdjTqEKOIsVuprj8VQB8WH',
-        'access_token_key':    '1507008482481868820-zfm9W8VhFSbXzYtkgTKS8w0zOFfO4O',
-        'access_token_secret': '3RXm3LJ0oS9E4yuqByvwNFAlEmisjNUe43fXfTialHyn6'
-    }
-
-auth = OAuthHandler(twitter_keys['consumer_key'], twitter_keys['consumer_secret'])
-auth.set_access_token(twitter_keys['access_token_key'], twitter_keys['access_token_secret'])
+auth = OAuthHandler(settings.TWITTER_API_KEY, settings.TWITTER_API_KEY_SECRET)
+auth.set_access_token(settings.TWITTER_ACCESS_TOKEN, settings.TWITTER_ACCESS_TOKEN_SECRET)
 api = tweepy.API(auth, wait_on_rate_limit=True)
 trends_result = api.get_place_trends(23424848)[:5]
 

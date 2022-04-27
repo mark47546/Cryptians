@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post, Comment, Tweet
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
+from .models import Post, Comment, Tweet ,User
 from .forms import CreatePostForm, UpdatePostForm, CreateCommentForm, UpdateCommentForm
 from django.core.paginator import Paginator
 from django.db.models import Count, Q
@@ -8,7 +8,10 @@ from .twitter import *
 from taggit.models import Tag
 import atexit
 from apscheduler.schedulers.background import BackgroundScheduler
+import logging
+from predict.views import download_all
 
+logger = logging.getLogger('__name__')
 def update_twitter():
     print("-----------------------------Update twitter-----------------------------")
     save_to_db()
@@ -18,8 +21,28 @@ scheduler.add_job(update_twitter, 'cron', minute='15')
 scheduler.start()
 atexit.register(lambda: scheduler.shutdown())
 
-# Create your views here.
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
+import json
+from django.core import serializers
+
+@csrf_exempt
+@api_view(["GET"])
+def MyPostList(request):
+    data = Post.objects.filter(posted_by=request.user)
+    tmpJson = serializers.serialize("json",data)
+    tmpObj = json.loads(tmpJson)
+    return HttpResponse(json.dumps(tmpObj))
+
+
 def homepage(request):
+    first_login = str('first-login')
+    num_visits = request.session.get(first_login, 1)
+    request.session[first_login] = num_visits + 1
+    if num_visits == 1:
+        download_all()
+        save_to_db()
+
     post = Post.objects.all().order_by('-id')[:4]
     common_tags = Post.tags.most_common()[:4].annotate(posts_count=Count('post'))
     context={'post':post,'common_tags':common_tags}
@@ -61,6 +84,7 @@ def createPost(request):
         if form.is_valid():
             form.save()
             return redirect("/allPost")
+        logger.warning(f'Username {posted_by}: Got something went wrong when try to post')
     else:
         form = CreatePostForm(initial={'posted_by':posted_by})
         return render(request,'Post/create_post.html', {'form':form, 'common_tags':common_tags})
@@ -75,6 +99,7 @@ def viewPost(request,post_id):
         if form.is_valid():
             form.save()
             return redirect(f"/allPost/{get_post_id.id}")
+        logger.warning(f'Username {posted_by}: Got something went wrong when try to comment')
     
     return render(request, 'post/view_post.html',{'post':get_post_id, 'form':form, 'comments':comments})
 
@@ -147,3 +172,16 @@ def tweet_list(request):
     page_obj = paginator.get_page(page_number)
 
     return render(request, 'twitter/twitter.html', {'tweets': page_obj})
+
+
+def custom_page_not_found_view(request, exception):
+    return render(request, "errors/404.html", {})
+
+def custom_error_view(request, exception=None):
+    return render(request, "errors/500.html", {})
+
+def custom_permission_denied_view(request, exception=None):
+    return render(request, "errors/403.html", {})
+
+def custom_bad_request_view(request, exception=None):
+    return render(request, "errors/400.html", {})

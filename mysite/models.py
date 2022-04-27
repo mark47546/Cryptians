@@ -1,13 +1,23 @@
 from django.db import models
-from django.contrib.auth.models import User
+from login.models import User
 from taggit.managers import TaggableManager
+from taggit.models import GenericUUIDTaggedItemBase, TaggedItemBase
 from ckeditor.fields import RichTextField
+from django_cryptography.fields import encrypt
+from django.utils.translation import ugettext_lazy as _
+import uuid
+
+class UUIDTaggedItem(GenericUUIDTaggedItemBase, TaggedItemBase):
+    class Meta:
+        verbose_name = _("Tag")
+        verbose_name_plural = _("Tags")
 
 class Post(models.Model):
-    title = models.CharField(max_length=100)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    title = encrypt(models.CharField(max_length=100))
     coverImage = models.ImageField(upload_to='Post/', null=True,blank=True)
-    body = RichTextField(null=True, blank=True)
-    tags = TaggableManager()
+    body = encrypt(RichTextField(null=True, blank=True))
+    tags = TaggableManager(through=UUIDTaggedItem)
     posted_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
@@ -23,8 +33,9 @@ class Post(models.Model):
         return self.title + ' | ' + self.posted_by.username
 
 class Comment(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='PostComment')
-    body = RichTextField(null=True, blank=True)
+    body = encrypt(RichTextField(null=True, blank=True))
 
     posted_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
@@ -36,12 +47,11 @@ class Comment(models.Model):
         return self.post.title + ' | ' + self.body + ' By : ' + self.posted_by.username 
 
 class Tweet(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     tweet_id = models.CharField(max_length=250, null=True, blank=True)
-    tweet_name = models.CharField(max_length=250, null=True, blank=True)
-    tweet_text = models.TextField()
+    tweet_name = encrypt(models.CharField(max_length=250, null=True, blank=True))
+    tweet_text = encrypt(models.TextField())
     published_date = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return self.tweet_text
-
-    

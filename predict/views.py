@@ -145,7 +145,7 @@ def lstm_btc_30M(request):
 
     fig.update_layout(title_text='BTC-USD GRAPH TF 30 MINUTE', title_x=0.5)
 
-    find_btc = btc_30M.objects.filter(~Q(predict_LSTM=None))
+    find_btc = btc_30M.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_btc:
@@ -177,7 +177,7 @@ def lstm_btc_1H(request):
                 close=data['Close'],
                 name='Real Prices')])
     fig.update_layout(title_text='BTC-USD GRAPH TF 1 HOUR', title_x=0.5)
-    find_btc = btc_1H.objects.filter(~Q(predict_LSTM=None))
+    find_btc = btc_1H.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_btc:
@@ -208,7 +208,7 @@ def lstm_btc_1D(request):
                 close=data['Close'],
                 name='Real Prices')])
     fig.update_layout(title_text='BTC-USD GRAPH TF 1 DAY', title_x=0.5)
-    find_btc = btc_1D.objects.filter(~Q(predict_LSTM=None))
+    find_btc = btc_1D.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_btc:
@@ -242,7 +242,7 @@ def lstm_eth_30M(request):
 
     fig.update_layout(title_text='ETH-USD GRAPH TF 30 MINUTE', title_x=0.5)
 
-    find_eth = eth_30M.objects.filter(~Q(predict_LSTM=None))
+    find_eth = eth_30M.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_eth:
@@ -274,7 +274,7 @@ def lstm_eth_1H(request):
                 close=data['Close'],
                 name='Real Prices')])
     fig.update_layout(title_text='ETH-USD GRAPH TF 1 HOUR', title_x=0.5)
-    find_eth = eth_1H.objects.filter(~Q(predict_LSTM=None))
+    find_eth = eth_1H.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_eth:
@@ -305,7 +305,7 @@ def lstm_eth_1D(request):
                 close=data['Close'],
                 name='Real Prices')])
     fig.update_layout(title_text='ETH-USD GRAPH TF 1 DAY', title_x=0.5)
-    find_eth = eth_1D.objects.filter(~Q(predict_LSTM=None))
+    find_eth = eth_1D.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_eth:
@@ -340,7 +340,7 @@ def lstm_bnb_30M(request):
 
     fig.update_layout(title_text='BNB-USD GRAPH TF 30 MINUTE', title_x=0.5)
 
-    find_bnb = bnb_30M.objects.filter(~Q(predict_LSTM=None))
+    find_bnb = bnb_30M.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_bnb:
@@ -372,7 +372,7 @@ def lstm_bnb_1H(request):
                 close=data['Close'],
                 name='Real Prices')])
     fig.update_layout(title_text='BNB-USD GRAPH TF 1 HOUR', title_x=0.5)
-    find_bnb = bnb_1H.objects.filter(~Q(predict_LSTM=None))
+    find_bnb = bnb_1H.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_bnb:
@@ -403,7 +403,7 @@ def lstm_bnb_1D(request):
                 close=data['Close'],
                 name='Real Prices')])
     fig.update_layout(title_text='BNB-USD GRAPH TF 1 DAY', title_x=0.5)
-    find_bnb = bnb_1D.objects.filter(~Q(predict_LSTM=None))
+    find_bnb = bnb_1D.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_bnb:
@@ -437,7 +437,7 @@ def lstm_ada_30M(request):
 
     fig.update_layout(title_text='ADA-USD GRAPH TF 30 MINUTE', title_x=0.5)
 
-    find_ada = ada_30M.objects.filter(~Q(predict_LSTM=None))
+    find_ada = ada_30M.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_ada:
@@ -469,7 +469,7 @@ def lstm_ada_1H(request):
                 close=data['Close'],
                 name='Real Prices')])
     fig.update_layout(title_text='ADA-USD GRAPH TF 1 HOUR', title_x=0.5)
-    find_ada = ada_1H.objects.filter(~Q(predict_LSTM=None))
+    find_ada = ada_1H.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_ada:
@@ -500,7 +500,7 @@ def lstm_ada_1D(request):
                 close=data['Close'],
                 name='Real Prices')])
     fig.update_layout(title_text='ADA-USD GRAPH TF 1 DAY', title_x=0.5)
-    find_ada = ada_1D.objects.filter(~Q(predict_LSTM=None))
+    find_ada = ada_1D.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_ada:
@@ -534,7 +534,7 @@ def lstm_ltc_30M(request):
 
     fig.update_layout(title_text='LTC-USD GRAPH TF 30 MINUTE', title_x=0.5)
 
-    find_ltc = ltc_30M.objects.filter(~Q(predict_LSTM=None))
+    find_ltc = ltc_30M.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_ltc:
@@ -566,7 +566,7 @@ def lstm_ltc_1H(request):
                 close=data['Close'],
                 name='Real Prices')])
     fig.update_layout(title_text='LTC-USD GRAPH TF 1 HOUR', title_x=0.5)
-    find_ltc = ltc_1H.objects.filter(~Q(predict_LSTM=None))
+    find_ltc = ltc_1H.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_ltc:
@@ -597,7 +597,7 @@ def lstm_ltc_1D(request):
                 close=data['Close'],
                 name='Real Prices')])
     fig.update_layout(title_text='LTC-USD GRAPH TF 1 DAY', title_x=0.5)
-    find_ltc = ltc_1D.objects.filter(~Q(predict_LSTM=None))
+    find_ltc = ltc_1D.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_ltc:
@@ -632,7 +632,7 @@ def lrg_btc_30M(request):
                 name='Real Prices')])
     fig.update_layout(title_text='BTC-USD GRAPH TF 30 MINUTE', title_x=0.5)
 
-    find_btc = btc_30M.objects.filter(~Q(predict_LRG=None))
+    find_btc = btc_30M.objects.filter(predict_LRG__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_btc:
@@ -641,7 +641,7 @@ def lrg_btc_30M(request):
 
     predict_list = predict_list[len(predict_list)-96:]
     predictDate_list = predictDate_list[len(predictDate_list)-96:]
-
+    print(predict_list)
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -664,7 +664,7 @@ def lrg_btc_1H(request):
                 close=data['Close'],
                 name='Real Prices')])
     fig.update_layout(title_text='BTC-USD GRAPH TF 1 HOUR', title_x=0.5)
-    find_btc = btc_1H.objects.filter(~Q(predict_LSTM=None))
+    find_btc = btc_1H.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_btc:
@@ -696,7 +696,7 @@ def lrg_btc_1D(request):
                 name='Real Prices')])
     fig.update_layout(title_text='BTC-USD GRAPH TF 1 DAY', title_x=0.5)
 
-    find_btc = btc_1D.objects.filter(~Q(predict_LRG=None))
+    find_btc = btc_1D.objects.filter(predict_LRG__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_btc:
@@ -729,7 +729,7 @@ def lrg_eth_30M(request):
                 name='Real Prices')])
     fig.update_layout(title_text='ETH-USD GRAPH TF 30 MINUTE', title_x=0.5)
 
-    find_eth = eth_30M.objects.filter(~Q(predict_LRG=None))
+    find_eth = eth_30M.objects.filter(predict_LRG__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_eth:
@@ -761,7 +761,7 @@ def lrg_eth_1H(request):
                 close=data['Close'],
                 name='Real Prices')])
     fig.update_layout(title_text='ETH-USD GRAPH TF 1 HOUR', title_x=0.5)
-    find_eth = eth_1H.objects.filter(~Q(predict_LSTM=None))
+    find_eth = eth_1H.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_eth:
@@ -793,7 +793,7 @@ def lrg_eth_1D(request):
                 name='Real Prices')])
     fig.update_layout(title_text='ETH-USD GRAPH TF 1 DAY', title_x=0.5)
 
-    find_eth = eth_1D.objects.filter(~Q(predict_LRG=None))
+    find_eth = eth_1D.objects.filter(predict_LRG__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_eth:
@@ -826,7 +826,7 @@ def lrg_bnb_30M(request):
                 name='Real Prices')])
     fig.update_layout(title_text='BNB-USD GRAPH TF 30 MINUTE', title_x=0.5)
 
-    find_bnb = bnb_30M.objects.filter(~Q(predict_LRG=None))
+    find_bnb = bnb_30M.objects.filter(predict_LRG__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_bnb:
@@ -858,7 +858,7 @@ def lrg_bnb_1H(request):
                 close=data['Close'],
                 name='Real Prices')])
     fig.update_layout(title_text='BNB-USD GRAPH TF 1 HOUR', title_x=0.5)
-    find_bnb = bnb_1H.objects.filter(~Q(predict_LSTM=None))
+    find_bnb = bnb_1H.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_bnb:
@@ -890,7 +890,7 @@ def lrg_bnb_1D(request):
                 name='Real Prices')])
     fig.update_layout(title_text='BNB-USD GRAPH TF 1 DAY', title_x=0.5)
 
-    find_bnb = bnb_1D.objects.filter(~Q(predict_LRG=None))
+    find_bnb = bnb_1D.objects.filter(predict_LRG__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_bnb:
@@ -923,7 +923,7 @@ def lrg_ada_30M(request):
                 name='Real Prices')])
     fig.update_layout(title_text='ADA-USD GRAPH TF 30 MINUTE', title_x=0.5)
 
-    find_ada = ada_30M.objects.filter(~Q(predict_LRG=None))
+    find_ada = ada_30M.objects.filter(predict_LRG__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_ada:
@@ -955,7 +955,7 @@ def lrg_ada_1H(request):
                 close=data['Close'],
                 name='Real Prices')])
     fig.update_layout(title_text='ADA-USD GRAPH TF 1 HOUR', title_x=0.5)
-    find_ada = ada_1H.objects.filter(~Q(predict_LSTM=None))
+    find_ada = ada_1H.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_ada:
@@ -987,7 +987,7 @@ def lrg_ada_1D(request):
                 name='Real Prices')])
     fig.update_layout(title_text='ADA-USD GRAPH TF 1 DAY', title_x=0.5)
 
-    find_ada = ada_1D.objects.filter(~Q(predict_LRG=None))
+    find_ada = ada_1D.objects.filter(predict_LRG__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_ada:
@@ -1021,7 +1021,7 @@ def lrg_ltc_30M(request):
                 name='Real Prices')])
     fig.update_layout(title_text='LTC-USD GRAPH TF 30 MINUTE', title_x=0.5)
 
-    find_ltc = ltc_30M.objects.filter(~Q(predict_LRG=None))
+    find_ltc = ltc_30M.objects.filter(predict_LRG__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_ltc:
@@ -1053,7 +1053,7 @@ def lrg_ltc_1H(request):
                 close=data['Close'],
                 name='Real Prices')])
     fig.update_layout(title_text='LTC-USD GRAPH TF 1 HOUR', title_x=0.5)
-    find_ltc = ltc_1H.objects.filter(~Q(predict_LSTM=None))
+    find_ltc = ltc_1H.objects.filter(predict_LSTM__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_ltc:
@@ -1085,7 +1085,7 @@ def lrg_ltc_1D(request):
                 name='Real Prices')])
     fig.update_layout(title_text='LTC-USD GRAPH TF 1 DAY', title_x=0.5)
 
-    find_ltc = ltc_1D.objects.filter(~Q(predict_LRG=None))
+    find_ltc = ltc_1D.objects.filter(predict_LRG__isnull=False)
     predictDate_list = []
     predict_list = []
     for predict_data in find_ltc:

@@ -39,13 +39,17 @@
     <span class="w3-jumbo w3-hide-small">Smart buddy for crypto traders</span><br>
     <span class="w3-xxlarge w3-hide-large w3-hide-medium">Smart buddy for cryptocurrency traders</span><br>
     <span class="w3-large">Stop wasting valuable time and money with random trading.</span>
-    <p><a href="/demoaccount" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Open demo account and start today!</a></p>
+    {% if user.is_authenticated%}
+      <p><a href="/demoaccount" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Go to demo account and start trade!</a></p>
+    {% else %}
+      <p><a href="/login/" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Create account and start today!</a></p>
+    {% endif %}
   </div> 
 </header>
 
 
 <div class="w3-container w3-light-grey" style="padding:128px 16px" id="about">
-  <h3 class="w3-center">ABOUT THIS PROJECT</h3>
+  <h3 class="w3-center">ABOUT THIS PROJECT {{posted_by}}</h3>
   <p class="w3-center w3-large">Key concepts of our project</p>
   <div class="w3-row-padding w3-center" style="margin-top:64px">
     <div class="w3-quarter">

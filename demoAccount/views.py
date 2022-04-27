@@ -1,5 +1,5 @@
 from pyexpat import model
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from predict.models import btc_1D, eth_1D, bnb_1D, ada_1D, ltc_1D
 from .models import Trade, demoAccount
 from django.db.models import Q
@@ -7,6 +7,21 @@ from django.core.paginator import Paginator
 from .forms import TradeForm
 import yfinance as yf
 from django.contrib.auth.decorators import login_required
+
+from rest_framework.authtoken.models import Token
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
+import json
+from django.core import serializers
+
+@csrf_exempt
+@api_view(["GET"])
+def historyList(request):
+    get_account = demoAccount.objects.get(user = request.user)
+    history = Trade.objects.filter(account = get_account)
+    tmpJson = serializers.serialize("json",history)
+    tmpObj = json.loads(tmpJson)
+    return HttpResponse(json.dumps(tmpObj))
 
 @login_required
 def DemoAccount(request):

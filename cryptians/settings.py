@@ -12,8 +12,12 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+from tkinter.tix import AUTO
 from twython import Twython
-
+from datetime import timedelta   
+import environ
+env = environ.Env()
+environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,12 +26,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-g51#ldei$@y)p56ynbbs3$=mwbqvjgt$sba0cvona!82r@oyud'
+SECRET_KEY = env("SECRET_KEY", default="unsafe-secret-key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','127.0.0.1']
 
 CRISPY_TEMPLATE_PACK="bootstrap4"
 
@@ -52,16 +56,19 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'taggit',
     'ckeditor',
+    'axes',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'axes.middleware.AxesMiddleware',
 ]
 
 ROOT_URLCONF = 'cryptians.urls'
@@ -88,11 +95,15 @@ WSGI_APPLICATION = 'cryptians.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(os.path.join(BASE_DIR / 'db.sqlite3')),
-    }
+DATABASES={
+   'default':{
+      'ENGINE':'django.db.backends.postgresql',
+      'NAME':'postgres',
+      'USER':'postgres',
+      'PASSWORD':env("POSTGRES_PASSWORD"),
+      'HOST':'pgdb',
+      'PORT':'5432'
+   }
 }
 
 
@@ -115,6 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = (
+    'axes.backends.AxesBackend',
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
@@ -141,16 +153,20 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'cryptians/statics'),
 ]
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = 'login.User'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '186867112167-t5c9cvkk4lmqa2mchba6549g1nd1vco5.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'TvJBG9MuHKYQ7ztI73yA42Go'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
 
 LOGIN_URL = '/auth/login/google-oauth2/'
 
@@ -159,10 +175,49 @@ LOGOUT_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
-TWITTER_API_KEY = 'W2mDDh5w4BHZblR9tGiTOiHG0'
-TWITTER_API_KEY_SECRET = 'F9IPLi9VBWNTjDz2X6HVgQWVE4zQIdjTqEKOIsVuprj8VQB8WH'
-TWITTER_BEARER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAAD4NawEAAAAAOXkc2bYfMvh4QFxQy4kN02RbnvU%3DIQdQAdMdhemq07HCrqyuTdqaDNAp1CdEOeT0NgskgU5V2YdSID'
-TWITTER_ACCESS_TOKEN = '1507008482481868820-zfm9W8VhFSbXzYtkgTKS8w0zOFfO4O'
-TWITTER_ACCESS_TOKEN_SECRET = '3RXm3LJ0oS9E4yuqByvwNFAlEmisjNUe43fXfTialHyn6'
+TWITTER_API_KEY = env("TWITTER_API_KEY")
+TWITTER_API_KEY_SECRET = env("TWITTER_API_KEY_SECRET")
+TWITTER_BEARER_TOKEN = env("TWITTER_BEARER_TOKEN")
+TWITTER_ACCESS_TOKEN = env("TWITTER_ACCESS_TOKEN")
+TWITTER_ACCESS_TOKEN_SECRET = env("TWITTER_ACCESS_TOKEN_SECRET")
 
 twitter = Twython(TWITTER_API_KEY, TWITTER_API_KEY_SECRET, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'logfile.log',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['file'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
+    },
+}
+CKEDITOR_CONFIGS = {
+    'default': {
+         'width': AUTO,
+         "removePlugins": "exportpdf",
+    }
+}
+#session-timeout
+SESSION_EXPIRE_SECONDS = 3600 #1 hour
+
+SESSION_TIMEOUT_REDIRECT = '/'
+
+AXES_COOLOFF_TIME = timedelta(minutes=10)
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated', )
+}
