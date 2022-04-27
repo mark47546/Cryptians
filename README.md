@@ -1,5 +1,5 @@
 <p align="center">
-<img src="cryptians.png" width="150px" height="150px"></a>
+<img src="cryptians.png" height="250px"></a>
 </p>
 
 ## Getting Started
