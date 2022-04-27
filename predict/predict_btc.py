@@ -94,7 +94,8 @@ def btc_30M_LSTM_predict():
     predictions = scaler.inverse_transform(predictions)
     valid = data[len(data)-len(predictions):]
     valid['Predictions'] = predictions
-
+    rmspe = (np.sqrt(np.mean(np.square((valid - predictions) / valid)))) * 100
+    print(f"===================================LSTM btc_30M RMS = {rmspe} ===================================")
     error_value = 0
     for i in range(len(valid)-1):
         new_df = valid[i+1:i+2]
@@ -149,7 +150,8 @@ def btc_1H_LSTM_predict():
     predictions = scaler.inverse_transform(predictions)
     valid = data[len(data)-len(predictions):]
     valid['Predictions'] = predictions
-
+    rmspe = (np.sqrt(np.mean(np.square((valid - predictions) / valid)))) * 100
+    print(f"===================================LSTM btc_1H RMS = {rmspe} ===================================")
     error_value = 0
     for i in range(len(valid)-1):
         new_df = valid[i+1:i+2]
@@ -165,7 +167,6 @@ def btc_1H_LSTM_predict():
 
 def btc_1D_LSTM_predict():
     df = yf.download(tickers='BTC-USD', period = '365d', interval = '1D')
-
     data = df.filter(['Close'])
     #dataframs to a numpy array
     dataset = data.values
@@ -203,7 +204,6 @@ def btc_1D_LSTM_predict():
     predictions = scaler.inverse_transform(predictions)
     valid = data[len(data)-len(predictions):]
     valid['Predictions'] = predictions
-
     error_value = 0
     for i in range(len(valid)-1):
         new_df = valid[i+1:i+2]
@@ -239,7 +239,9 @@ def btc_30M_LRG_predict():
 
     valid = data[len(data)-40:]
     valid['Predictions'] = LRG_prediction
-
+    rms=np.sqrt(np.mean(np.power((np.array(valid['Close'])-np.array(valid['Predictions'])),2)))
+    rms
+    print(f"===================================Lineaer regression btc_30M RMS = {rms} ===================================")
     error_value = 0
     for i in range(len(valid)-1):
         new_df = valid[i+1:i+2]
@@ -276,6 +278,9 @@ def btc_1H_LRG_predict():
     valid = data[len(data)-40:]
     valid['Predictions'] = LRG_prediction
 
+    rms=np.sqrt(np.mean(np.power((np.array(valid['Close'])-np.array(valid['Predictions'])),2)))
+    rms
+    print(f"===================================Lineaer regression btc_1H RMS = {rms} ===================================")
     error_value = 0
     for i in range(len(valid)-1):
         new_df = valid[i+1:i+2]

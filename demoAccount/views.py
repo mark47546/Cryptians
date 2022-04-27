@@ -1,13 +1,29 @@
 from pyexpat import model
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from predict.models import btc_1D, eth_1D, bnb_1D, ada_1D, ltc_1D
 from .models import Trade, demoAccount
 from django.db.models import Q
 from django.core.paginator import Paginator
 from .forms import TradeForm
 import yfinance as yf
+from django.contrib.auth.decorators import login_required
 
+from rest_framework.authtoken.models import Token
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
+import json
+from django.core import serializers
 
+@csrf_exempt
+@api_view(["GET"])
+def historyList(request):
+    get_account = demoAccount.objects.get(user = request.user)
+    history = Trade.objects.filter(account = get_account)
+    tmpJson = serializers.serialize("json",history)
+    tmpObj = json.loads(tmpJson)
+    return HttpResponse(json.dumps(tmpObj))
+
+@login_required
 def DemoAccount(request):
     get_user = request.user
     try:
@@ -30,7 +46,7 @@ def DemoAccount(request):
     percen_profit = profit / 1000
 
     return render(request,'demo-account/myaccount.html',{'account':account, 'profit':profit, 'percen_profit':percen_profit, 'btc_to_usd':btc_to_usd, 'eth_to_usd':eth_to_usd, 'bnb_to_usd':bnb_to_usd, 'ada_to_usd':ada_to_usd, 'ltc_to_usd':ltc_to_usd})
-
+@login_required
 def history(request):
     search = request.GET.get('search')
     get_account = demoAccount.objects.get(user = request.user)
@@ -45,6 +61,7 @@ def history(request):
     page_obj = paginator.get_page(page_number)
 
     return render(request, 'demo-account/history.html',{'history':page_obj})
+@login_required
 def tradeBTC(request):
     get_user = request.user
     account = demoAccount.objects.get(user = get_user.id)
@@ -92,7 +109,7 @@ def tradeBTC(request):
         form = TradeForm(initial={'account':account, 'coin':"btc"})
         return render(request,'demo-account/trade/trade_btc.html', {'form':form, 'account':account, 'lstm':lstm, 'lrg':lrg, 'macd':macd})
 
-
+@login_required
 def tradeETH(request):
     get_user = request.user
     account = demoAccount.objects.get(user = get_user.id)
@@ -139,7 +156,7 @@ def tradeETH(request):
     else:
         form = TradeForm(initial={'account':account, 'coin':"eth"})
         return render(request,'demo-account/trade/trade_eth.html', {'form':form, 'account':account, 'lstm':lstm, 'lrg':lrg, 'macd':macd})
-    
+@login_required
 def tradeBNB(request):
     get_user = request.user
     account = demoAccount.objects.get(user = get_user.id)
@@ -186,7 +203,7 @@ def tradeBNB(request):
     else:
         form = TradeForm(initial={'account':account, 'coin':"bnb"})
         return render(request,'demo-account/trade/trade_bnb.html', {'form':form, 'account':account, 'lstm':lstm, 'lrg':lrg, 'macd':macd})
-
+@login_required
 def tradeADA(request):
     get_user = request.user
     account = demoAccount.objects.get(user = get_user.id)
@@ -235,7 +252,7 @@ def tradeADA(request):
         return render(request,'demo-account/trade/trade_ada.html', {'form':form, 'account':account, 'lstm':lstm, 'lrg':lrg, 'macd':macd})
 
 
-
+@login_required
 def tradeLTC(request):
     get_user = request.user
     account = demoAccount.objects.get(user = get_user.id)

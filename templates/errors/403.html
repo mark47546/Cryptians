@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Error 403 | Cryptians</title>
+    </head>
+    <body class="bg">
+        <div class="container-lg">
+            <div class="table-wrapper">
+                <h style="color: black;">oops something went wrong - error code 403 </h>
+            <p class="mb-5 fs-lg-1  aos-init aos-animate" data-aos="fade-down" data-aos-delay="50" data-aos-duration="1000" style="color:dimgray">A server error occurred.  Please contact the administrator or try again.</p>
+    
+            <div class="row justify-content-center" style="margin-top: 100px;">
+    
+                    <div class="col-auto">
+                        <a href="/" class="btn btn-primary" style="background-color: #cc8e45; border-color: #cc8e45; width: 160px;">Go to Homepage</a>
+                    </div>
+                    <div class="col-auto">
+                        <a class="btn btn-dark" style="width: 160px;" href="{{ request.META.HTTP_REFERER }}" name="next">Go to Last page</a>
+                    </div>
+               
+            </div>
+            </div>        
+        </div>
+    </body>
+</html>
+{% endblock %}

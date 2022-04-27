@@ -8,6 +8,7 @@ class TradeForm(ModelForm):
     class Meta:
         model = Trade
         fields = "__all__"
+        exclude = ["id"]
 
 
 
