@@ -41,7 +41,7 @@ def register(response):
 		if form.is_valid():
 			form.save()
 
-			return HttpResponseRedirect(reverse('mysite:homepage'))
+			return HttpResponseRedirect(reverse('login'))
 	else:
 		form = RegisterForm()
 
