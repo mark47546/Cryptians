@@ -1,5 +1,5 @@
 <p align="center">
-<img src="cryptians.png" width="150px" height="150px"></a>
+<img src="cryptians.png"></a>
 </p>
 
 ## Getting Started
@@ -18,19 +18,30 @@ Open the Terminal and use command:
 
 ### Step 3: Create new enviroment in this directory
 
-Create .env file by copy from the env.example
+Create .env file by copy data from the env.example
+or
+Rename env.example to .env
 
-### Step 4: Open docker app
+### Step 4: Open Docker app
 
-Open the docker appication in your machine
+Open the Docker appication in your machine
 
-### Step 5: Run docker compose
+### Step 5: Run Docker compose
 
     cd ..
 
     docker-compose up -d
     
-### Step 6: Open Chrome browser and open localhost:8000
+### Step 6: Open your browser and open localhost:8000
 
-Open Chrome browser and redirect url to localhost port 8000
+Open your browser and redirect url to localhost port 8000
+
+
+### To create a super user: Open Docker CLI
+<p align="center">
+<img src="docker_cli.png"></a>
+</p>
+Open Docker CLI and run command:
+
+    python manage.py createsuperuser
           
