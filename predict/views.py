@@ -15,7 +15,7 @@ from .predict_ltc import ltc_30M_download, ltc_1H_download, ltc_1D_download, ltc
 #--------------------------------------------------------------------------------------------------------
 import atexit
 from apscheduler.schedulers.background import BackgroundScheduler
-
+from django.utils import timezone
 def predict_1d():
     print("-----------------------------Start prediction btc tf 1D-----------------------------")
     btc_1D_download()
@@ -97,24 +97,25 @@ def predict_30min():
 
 
 def download_all():
-    print("-----------------------------Download All Data-----------------------------")
-    btc_30M_download()
-    eth_30M_download()
-    bnb_30M_download()
-    ada_30M_download()
-    ltc_30M_download()
+    if not btc_1D.objects.filter(Date=timezone.now().date()):
+        print("-----------------------------Download All Data-----------------------------")
+        btc_30M_download()
+        eth_30M_download()
+        bnb_30M_download()
+        ada_30M_download()
+        ltc_30M_download()
 
-    btc_1H_download()
-    eth_1H_download()
-    bnb_1H_download()
-    ada_1H_download()
-    ltc_1H_download()
+        btc_1H_download()
+        eth_1H_download()
+        bnb_1H_download()
+        ada_1H_download()
+        ltc_1H_download()
 
-    btc_1D_download()
-    eth_1D_download()
-    bnb_1D_download()
-    ada_1D_download()
-    ltc_1D_download()
+        btc_1D_download()
+        eth_1D_download()
+        bnb_1D_download()
+        ada_1D_download()
+        ltc_1D_download()
 
 scheduler = BackgroundScheduler() 
 scheduler.add_job(predict_30min, 'cron', minute='10,35')
