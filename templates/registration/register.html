@@ -32,7 +32,7 @@ Create an Account
 					<span class="login100-form-title">
 						Register
 					</span>
-					<div class="wrap-input100 validate-input" data-validate = "Valid username is required: ex@abc.xyz">
+					<div class="wrap-input100 validate-input" data-validate = "Valid username is required: MyUsername">
 						<input class="input100" type="text" name="username" placeholder="Username">
 						
 						<span class="focus-input100"></span>
@@ -73,6 +73,7 @@ Create an Account
 						<button type="submit" class="login100-form-btn" name="myButton" value="Submit">
 							Register
 						</button>
+						<input type="hidden" value="{{ request.META.HTTP_REFERER }}" name="next" />
 					</div>
 					<a style="color: #c80000;">{{ form.errors }}</a>
 					<div class="text-center p-t-136">
