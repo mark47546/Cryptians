@@ -14,7 +14,7 @@ class UUIDTaggedItem(GenericUUIDTaggedItemBase, TaggedItemBase):
 
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = encrypt(models.CharField(max_length=100))
+    title = models.CharField(max_length=100)
     coverImage = models.ImageField(upload_to='Post/', null=True,blank=True)
     body = encrypt(RichTextField(null=True, blank=True))
     tags = TaggableManager(through=UUIDTaggedItem)
@@ -50,7 +50,7 @@ class Tweet(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     tweet_id = models.CharField(max_length=250, null=True, blank=True)
     tweet_name = encrypt(models.CharField(max_length=250, null=True, blank=True))
-    tweet_text = encrypt(models.TextField())
+    tweet_text = models.TextField()
     published_date = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):

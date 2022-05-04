@@ -103,7 +103,7 @@ def eth_30M_LSTM_predict():
     #-- save perdict value to db ------------------------------------------------------------------------------------------------------
     for i in range(len(valid)-1):
         new_df = valid[i+1:i+2]
-        find_eth_30M = eth_30M.objects.filter(Datetime = new_df.reset_index()['Datetime'][0], predict_LSTM = None)
+        find_eth_30M = eth_30M.objects.filter(Datetime = new_df.reset_index()['Datetime'][0], predict_LSTM__isnull=True)
         find_eth_30M.update(predict_LSTM = float(new_df.reset_index()['Predictions'].values-error_value))
     #----------------------------------------------------------------------------
 
@@ -158,7 +158,7 @@ def eth_1H_LSTM_predict():
     #-- save perdict value to db ------------------------------------------------------------------------------------------------------
     for i in range(len(valid)-1):
         new_df = valid[i+1:i+2]
-        find_eth_1H = eth_1H.objects.filter(Datetime = new_df.reset_index()['Datetime'][0], predict_LSTM = None)
+        find_eth_1H = eth_1H.objects.filter(Datetime = new_df.reset_index()['Datetime'][0], predict_LSTM__isnull=True)
         find_eth_1H.update(predict_LSTM = float(new_df.reset_index()['Predictions'].values-error_value))
     #----------------------------------------------------------------------------
 
@@ -212,7 +212,7 @@ def eth_1D_LSTM_predict():
     #-- save perdict value to db ------------------------------------------------------------------------------------------------------
     for i in range(len(valid)-1):
         new_df = valid[i+1:i+2]
-        find_eth_1D = eth_1D.objects.filter(Date = new_df.reset_index()['Date'][0], predict_LSTM = None)
+        find_eth_1D = eth_1D.objects.filter(Date = new_df.reset_index()['Date'][0], predict_LSTM__isnull=True)
         find_eth_1D.update(predict_LSTM = float(new_df.reset_index()['Predictions'].values-error_value))
     #----------------------------------------------------------------------------
 
@@ -248,7 +248,7 @@ def eth_30M_LRG_predict():
     #-- save perdict value to db ------------------------------------------------------------------------------------------------------
     for i in range(len(valid)-1):
         new_df = valid[i+1:i+2]
-        find_eth_30M = eth_30M.objects.filter(Datetime = new_df.reset_index()['Datetime'][0], predict_LRG = None)
+        find_eth_30M = eth_30M.objects.filter(Datetime = new_df.reset_index()['Datetime'][0], predict_LRG__isnull=True)
         find_eth_30M.update(predict_LRG = float(new_df.reset_index()['Predictions'].values-error_value))
     #----------------------------------------------------------------------------
 
@@ -284,7 +284,7 @@ def eth_1H_LRG_predict():
     #-- save perdict value to db ------------------------------------------------------------------------------------------------------
     for i in range(len(valid)-1):
         new_df = valid[i+1:i+2]
-        find_eth_1H = eth_1H.objects.filter(Datetime = new_df.reset_index()['Datetime'][0], predict_LRG = None)
+        find_eth_1H = eth_1H.objects.filter(Datetime = new_df.reset_index()['Datetime'][0], predict_LRG__isnull=True)
         find_eth_1H.update(predict_LRG = float(new_df.reset_index()['Predictions'].values-error_value))
     #----------------------------------------------------------------------------
 
@@ -319,7 +319,7 @@ def eth_1D_LRG_predict():
     #-- save perdict value to db ------------------------------------------------------------------------------------------------------
     for i in range(len(valid)-1):
         new_df = valid[i+1:i+2]
-        find_eth_1D = eth_1D.objects.filter(Date = new_df.reset_index()['Date'][0], predict_LRG = None)
+        find_eth_1D = eth_1D.objects.filter(Date = new_df.reset_index()['Date'][0], predict_LRG__isnull=True)
         find_eth_1D.update(predict_LRG = float(new_df.reset_index()['Predictions'].values-error_value))
     #----------------------------------------------------------------------------
 
@@ -341,7 +341,7 @@ def eth_30M_MACD_predict():
         else:
             predictMACD = "hold"
         Datetime = (new_data.reset_index()['Datetime'][0])
-        eth_30M.objects.filter(Datetime=Datetime,predict_MACD=None).update(predict_MACD=predictMACD)
+        eth_30M.objects.filter(Datetime=Datetime,predict_MACD__isnull=True).update(predict_MACD=predictMACD)
 
 def eth_1H_MACD_predict():
     data = yf.download(tickers='ETH-USD', period = '72000M', interval = '60M')
@@ -362,7 +362,7 @@ def eth_1H_MACD_predict():
         else:
             predictMACD = "hold"
         Datetime = (new_data.reset_index()['Datetime'][0])
-        eth_1H.objects.filter(Datetime=Datetime,predict_MACD=None).update(predict_MACD=predictMACD)
+        eth_1H.objects.filter(Datetime=Datetime,predict_MACD__isnull=True).update(predict_MACD=predictMACD)
 
 def eth_1D_MACD_predict():
     data = yf.download(tickers='ETH-USD', period = '960D', interval = '1D')
@@ -382,4 +382,4 @@ def eth_1D_MACD_predict():
         else:
             predictMACD = "hold"
         Date = (new_data.reset_index()['Date'][0])
-        eth_1D.objects.filter(Date=Date,predict_MACD=None).update(predict_MACD=predictMACD)
+        eth_1D.objects.filter(Date=Date,predict_MACD__isnull=True).update(predict_MACD=predictMACD)
