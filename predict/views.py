@@ -153,8 +153,8 @@ def lstm_btc_30M(request):
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LSTM)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
 
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
@@ -184,9 +184,8 @@ def lstm_btc_1H(request):
     for predict_data in find_btc:
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LSTM)
-
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -215,8 +214,8 @@ def lstm_btc_1D(request):
     for predict_data in find_btc:
         predictDate_list.append(predict_data.Date)
         predict_list.append(predict_data.predict_LSTM)
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -250,8 +249,8 @@ def lstm_eth_30M(request):
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LSTM)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
 
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
@@ -282,8 +281,8 @@ def lstm_eth_1H(request):
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LSTM)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -312,8 +311,8 @@ def lstm_eth_1D(request):
     for predict_data in find_eth:
         predictDate_list.append(predict_data.Date)
         predict_list.append(predict_data.predict_LSTM)
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -348,8 +347,8 @@ def lstm_bnb_30M(request):
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LSTM)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
 
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
@@ -380,8 +379,8 @@ def lstm_bnb_1H(request):
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LSTM)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -410,8 +409,8 @@ def lstm_bnb_1D(request):
     for predict_data in find_bnb:
         predictDate_list.append(predict_data.Date)
         predict_list.append(predict_data.predict_LSTM)
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -445,8 +444,8 @@ def lstm_ada_30M(request):
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LSTM)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
 
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
@@ -477,8 +476,8 @@ def lstm_ada_1H(request):
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LSTM)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -507,8 +506,8 @@ def lstm_ada_1D(request):
     for predict_data in find_ada:
         predictDate_list.append(predict_data.Date)
         predict_list.append(predict_data.predict_LSTM)
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -542,8 +541,8 @@ def lstm_ltc_30M(request):
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LSTM)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
 
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
@@ -574,8 +573,8 @@ def lstm_ltc_1H(request):
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LSTM)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -604,8 +603,8 @@ def lstm_ltc_1D(request):
     for predict_data in find_ltc:
         predictDate_list.append(predict_data.Date)
         predict_list.append(predict_data.predict_LSTM)
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -640,8 +639,8 @@ def lrg_btc_30M(request):
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LRG)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     print(predict_list)
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
@@ -672,8 +671,8 @@ def lrg_btc_1H(request):
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LSTM)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -704,8 +703,8 @@ def lrg_btc_1D(request):
         predictDate_list.append(predict_data.Date)
         predict_list.append(predict_data.predict_LRG)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -737,8 +736,8 @@ def lrg_eth_30M(request):
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LRG)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
 
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
@@ -769,8 +768,8 @@ def lrg_eth_1H(request):
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LSTM)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -801,8 +800,8 @@ def lrg_eth_1D(request):
         predictDate_list.append(predict_data.Date)
         predict_list.append(predict_data.predict_LRG)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -834,8 +833,8 @@ def lrg_bnb_30M(request):
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LRG)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
 
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
@@ -866,8 +865,8 @@ def lrg_bnb_1H(request):
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LSTM)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -898,8 +897,8 @@ def lrg_bnb_1D(request):
         predictDate_list.append(predict_data.Date)
         predict_list.append(predict_data.predict_LRG)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -931,8 +930,8 @@ def lrg_ada_30M(request):
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LRG)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
 
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
@@ -963,8 +962,8 @@ def lrg_ada_1H(request):
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LSTM)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -995,8 +994,8 @@ def lrg_ada_1D(request):
         predictDate_list.append(predict_data.Date)
         predict_list.append(predict_data.predict_LRG)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -1029,8 +1028,8 @@ def lrg_ltc_30M(request):
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LRG)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
 
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
@@ -1061,8 +1060,8 @@ def lrg_ltc_1H(request):
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LSTM)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
@@ -1093,8 +1092,8 @@ def lrg_ltc_1D(request):
         predictDate_list.append(predict_data.Date)
         predict_list.append(predict_data.predict_LRG)
 
-    predict_list = predict_list[len(predict_list)-96:]
-    predictDate_list = predictDate_list[len(predictDate_list)-96:]
+    predict_list = predict_list[:len(data)]
+    predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
                             line=dict(color="#0085ff"),
                             mode='lines+markers',
