@@ -87,7 +87,7 @@ def createPost(request):
         logger.warning(f'Username {posted_by}: Got something went wrong when try to post')
     else:
         form = CreatePostForm(initial={'posted_by':posted_by})
-        return render(request,'Post/create_post.html', {'form':form, 'common_tags':common_tags})
+    return render(request,'Post/create_post.html', {'form':form, 'common_tags':common_tags})
 
 def viewPost(request,post_id):
     posted_by = request.user

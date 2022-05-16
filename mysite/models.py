@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from login.models import User
 from taggit.managers import TaggableManager
@@ -16,8 +17,8 @@ class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=100)
     coverImage = models.ImageField(upload_to='Post/', null=True,blank=True)
-    body = encrypt(RichTextField(null=True, blank=True))
-    tags = TaggableManager(through=UUIDTaggedItem)
+    body = encrypt(RichTextField(null=False, blank=False, default=""))
+    tags = TaggableManager(through=UUIDTaggedItem, blank=False)
     posted_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
@@ -35,7 +36,7 @@ class Post(models.Model):
 class Comment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='PostComment')
-    body = encrypt(RichTextField(null=True, blank=True))
+    body = encrypt(RichTextField(null=False, blank=False, default=""))
 
     posted_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)

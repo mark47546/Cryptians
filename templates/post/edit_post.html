@@ -50,23 +50,23 @@
         </span>
     </div>
 <!---------------------------------------------------------------------------------------------------------------->
-    <lable style="margin-left: 25px; font-size: 18px;"><b>Post Body :</b></lable>
+    <lable style="margin-left: 25px; font-size: 18px;"><b style="color: red; font-size: 20px;">* </b><b>Post Body :</b></lable>
     <div class="wrap-input100 validate-input" style="margin-bottom: 40px; margin-top: 15px;">
         {{form.body}}
     </div>
 <!---------------------------------------------------------------------------------------------------------------->
     <div class="form-group">
-        <label style="margin-left: 25px; font-size: 18px;"><b>Tags :</b></label>
+        <label style="margin-left: 25px; font-size: 18px;"><b style="color: red; font-size: 20px;">* </b><b>Tags :</b></label>
         <p>Common Tags: 
             {% for mt in common_tags %}
                 <a href="#" class="badge badge-success">{{mt}}</a>
             {% endfor %}
         </p>
-        <input type="text" data-role="tagsinput" class="form-control" name="tags" value="{{post.tags.all.0}}, {{post.tags.all.1}}, {{post.tags.all.2}}, {{post.tags.all.3}}, {{post.tags.all.4}}, {{post.tags.all.5}}, {{post.tags.all.6}}, {{post.tags.all.7}}, {{post.tags.all.8}}, {{post.tags.all.9}} ">
+        <input type="text" data-role="tagsinput" class="form-control" name="tags" value="{{post.tags.all.0}}, {{post.tags.all.1}}, {{post.tags.all.2}}, {{post.tags.all.3}}, {{post.tags.all.4}}, {{post.tags.all.5}}, {{post.tags.all.6}}, {{post.tags.all.7}}, {{post.tags.all.8}}, {{post.tags.all.9}} " required>
     </div>
+    <a style="color: #c80000;">{{ form.errors }}</a>
     <input type="submit" class="btn btn-success" name="myButton" value="Submit" style=" margin-left: 25px; margin-top: 20px; margin-right: 5px; width: 100px; margin-bottom: 20px;">
     <a href='/myPost' class='btn btn-danger' onclick="confirm('Are you sure that you want to cancel');" style="margin-top: 20px; width: 100px; margin-bottom: 20px;">Back</a>
-    <a style="color: #c80000;">{{ form.errors }}</a>
 
 </form>
 <script>

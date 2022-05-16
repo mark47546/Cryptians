@@ -22,9 +22,6 @@
             <h1>{{post.title}}</h1>
             <time class="entry-date published" >{{post.created_at}}</time> by {{post.posted_by}}</span>
             <div>
-                <b>You have visited this post {{ num_visits }} time{{ num_visits|pluralize }}.</b>
-            </div>
-            <div>
                 {% for tag in post.tags.all %}
                     <a class="mr-1 badge badge-info" style="color: aliceblue;">#{{ tag }}</a>
                 {% endfor %}
@@ -69,10 +66,10 @@
             <div class="wrap-input100 validate-input" style="margin-bottom: 40px; margin-top: 15px;">
                 {{form.body}}
             </div>
+            <a style="color: #c80000;">{{ form.errors }}</a>
             <div>
                 <input type="submit" class="btn btn-success" name="myButton" value="Submit" style="background-color: #cc8e45; border-color: #cc8e45;">
             </div>
-            <a style="color: #c80000;">{{ form.errors }}</a>
         </form>
         {% endif %}
         {% if not user.is_authenticated%}
