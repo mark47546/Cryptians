@@ -184,7 +184,6 @@ def lstm_btc_1H(request):
     for predict_data in find_btc:
         predictDate_list.append(predict_data.Datetime)
         predict_list.append(predict_data.predict_LSTM)
-    print(predict_list)
     predict_list = predict_list[:len(data)]
     predictDate_list = predictDate_list[:len(data)]
     fig.add_trace(go.Scatter(x=predictDate_list, y=predict_list,
